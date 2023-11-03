@@ -1,21 +1,22 @@
 import java.sql.*;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-public class DDL {
+public class Lab7JDBC {
+    // Commons
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
     public static final String USER_UNIVERSITY = "university";
     public static final String USER_PASSWD = "comp322";
-    public static final String create_table = "CREATE TABLE ";
     public static final String left_paren = "(";
     public static final String right_paren = ") ";
+    public static final String comma = ", ";
+    // DDLs
+    public static final String create_table = "CREATE TABLE ";
     public static final String primary_key = "PRIMARY KEY ";
     public static final String unique = "UNIQUE ";
     public static final String foreign_key = "FOREIGN KEY ";
     public static final String reference = "REFERENCES ";
     public static final String alter_table = "ALTER TABLE ";
     public static final String add = "ADD ";
-    public static final String comma = ", ";
+
 
     public static void main(String[] args) {
         Connection conn = null;
