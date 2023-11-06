@@ -12,7 +12,7 @@ SERVER(ENTITY) -> DELETE : 1개 서버로 운영하여 100개 레코드 존재�
 MAPPINGS(Entity to Relation):
 
 USER(ENTITY)
- -> USERS : ID_NUMBER(PK), NAME, SEX, YOB(AGE는 지속적으로 변동이 필요해 Year Of Birth로 변경), JOB
+ -> USERS : ID_NUMBER(PK), NAME, SEX, YOB(AGE는 지속적으로 변동이 필요해 Year Of Birth로 변경), JOB, PASSWD
 
 TEAM(ENTITY)
  -> TEAM : TEAM_ID(PK), TEAM_NAME, TEAM_TIER(Change to View : Trigger에서 집계함수 지원을 하지 않음)
