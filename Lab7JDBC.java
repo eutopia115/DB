@@ -1,5 +1,6 @@
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Lab7JDBC {
     // Commons

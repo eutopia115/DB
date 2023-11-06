@@ -6,6 +6,8 @@ CREATE TABLE USERS(
     SEX CHAR(1) NOT NULL , -- 'M' OR 'F'
     YOB CHAR(4) , -- ONLY YEAR
     JOB VARCHAR2(100) ,
+    PASSWD VARCHAR2(20),
+    CHECK ( LENGTH(PASSWD) > 10 ) ,
     CHECK ( ID_NUMBER LIKE 'U%') ,
     CHECK ( ID_NUMBER LIKE '____-__-____') ,
     CHECK ( SEX LIKE 'M' OR SEX LIKE 'F') ,
