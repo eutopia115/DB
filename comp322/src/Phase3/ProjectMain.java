@@ -11,13 +11,13 @@ import java.sql.Statement;
 public class ProjectMain {
     // Commons
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-    public static final String USER_TERMPROJECT = "university";
-    public static final String USER_PASSWD = "comp322";
+    public static final String USER_TERMPROJECT = "TERMPROJECT";
+    public static final String USER_PASSWD = "COMP0322";
+    public static Connection conn = null;
+    public static Statement stmt = null;
+
     static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException, SQLException {
-        Connection conn = null;
-        Statement stmt = null;
-        String sql = "";
 
         //jdbc 드라이버 불러오기
         try{
@@ -38,17 +38,20 @@ public class ProjectMain {
             System.exit(1);
         }
 
+        conn.setAutoCommit(false);
+        stmt = conn.createStatement();
+
         System.out.println("------------------------------");
-        System.out.println(" Hello, Welcome to SoccerLink");
+        System.out.println("Hello, Welcome to SoccerLink");
         while (true){
             System.out.println("------------------------------");
-            System.out.println(" Select Option");
-            System.out.println(" 1. Log In");
-            System.out.println(" 2. Sign Up");
-            System.out.println(" 3. Credits");
-            System.out.println(" 4. Quit");
+            System.out.println("Select Option");
+            System.out.println("1. Log In");
+            System.out.println("2. Sign Up");
+            System.out.println("3. Credits");
+            System.out.println("4. Quit");
             System.out.println("------------------------------");
-            System.out.print(" Option Number : ");
+            System.out.print("Option Number : ");
             int mainOpt = Integer.parseInt(bf.readLine());
             switch (mainOpt) {
                 case 1 : USERS.LogIn(); continue;
@@ -64,7 +67,7 @@ public class ProjectMain {
     }
     private static void Credits() throws IOException {
         System.out.println("-----------------------------------");
-        System.out.println(" Credits");
+        System.out.println("Credits");
         System.out.println("--------------------------------------------------------------------------");
         System.out.printf("|%-15s|%-40s|%-15s|\n", "Name", "Major", "ID_Number");
         System.out.println("--------------------------------------------------------------------------");
