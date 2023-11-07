@@ -1,6 +1,5 @@
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class Lab7JDBC {
     // Commons
@@ -292,7 +291,7 @@ public class Lab7JDBC {
             System.out.printf("<Query 3 result>\n");
             System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|\n",rx.getColumnName(1),rx.getColumnName(2),
                     rx.getColumnName(3),rx.getColumnName(4),rx.getColumnName(5));
-            System.out.printf("-----------------------------------------------------------------\n");
+            System.out.printf("---------------------------------------------------------------------------------\n");
             while (rs.next()){
                 System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15d|", rs.getString(1), rs.getString(2),
                         rs.getString(3),rs.getString(4),rs.getInt(5));
