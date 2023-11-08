@@ -1,6 +1,7 @@
 package Phase3;
 
 import javax.xml.transform.Result;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -107,11 +108,10 @@ public class SQLx {
             System.err.println("Insert Error");
             System.exit(1);
         }
+        System.out.println(sql);
         sql = sb.toString();
         int rs = ProjectMain.stmt.executeUpdate(sql);
-        if(rs == 0){
-            ProjectMain.conn.commit();
-        }
+        ProjectMain.conn.commit();
     }
     protected static void Updatex(String tbl, String target, String data, String[] key) throws SQLException {
         StringBuilder sb = new StringBuilder();
@@ -156,9 +156,7 @@ public class SQLx {
         }
         sql = sb.toString();
         int rs = ProjectMain.stmt.executeUpdate(sql);
-        if(rs == 0){
-            ProjectMain.conn.commit();
-        }
+        ProjectMain.conn.commit();
     }
     protected static void Deletex(String tbl, String[] key) throws SQLException {
         StringBuilder sb = new StringBuilder();
@@ -208,47 +206,51 @@ public class SQLx {
     protected static ResultSet Selectx(String attr, String tbl) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
-        sb.append("SELECT ");
+        sb.append("SELECT "+attr);
         sb.append(" FROM "+tbl);
         sql = sb.toString();
-        ResultSet rs = ProjectMain.stmt.executeQuery(sql);
+        PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery(sql);
         ProjectMain.conn.commit();
         return rs;
     }
     protected static ResultSet Selectx(String attr, String tbl, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
-        sb.append("SELECT ");
+        sb.append("SELECT "+attr);
         sb.append(" FROM "+tbl);
         sb.append(" "+opt);
         sql = sb.toString();
-        ResultSet rs = ProjectMain.stmt.executeQuery(sql);
+        PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery(sql);
         ProjectMain.conn.commit();
         return rs;
     }
     protected static ResultSet Selectx(String attr, String tbl, String where, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
-        sb.append("SELECT ");
+        sb.append("SELECT "+attr);
         sb.append(" FROM "+tbl);
         sb.append(" WHERE "+where);
         sb.append(" "+opt);
         sql = sb.toString();
         System.out.println(sql);
-        ResultSet rs = ProjectMain.stmt.executeQuery(sql);
+        PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery(sql);
         ProjectMain.conn.commit();
         return rs;
     }
     protected static ResultSet Selectx(String attr, String tbl, String where, String groups, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
-        sb.append("SELECT ");
+        sb.append("SELECT "+attr);
         sb.append(" FROM "+tbl);
         sb.append(" WHERE "+where);
         sb.append(" GROUP BY "+groups);
         sb.append(" "+opt);
         sql = sb.toString();
-        ResultSet rs = ProjectMain.stmt.executeQuery(sql);
+        PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery(sql);
         ProjectMain.conn.commit();
         return rs;
     }

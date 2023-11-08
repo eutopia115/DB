@@ -29,8 +29,8 @@ public class USERS {
         do {
             System.out.println("Insert your biological Sex. Male = M, Female = F");
             System.out.print("Sex : ");
-            UserData[2] = bf.readLine();
-        } while (!UserData[2].equals("M") && !UserData[2].equals("F") && !UserData[2].equals("m") && !UserData[2].equals("f"));
+            UserData[2] = bf.readLine().toUpperCase();
+        } while (!UserData[2].equals("M") && !UserData[2].equals("F"));
 
         do {
             System.out.println("Insert your Year of Birth. ex) 1998");
@@ -51,7 +51,11 @@ public class USERS {
             sb.append("-").append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10));
             UserData[0] = sb.toString();
             where.append("ID_NUMBER = "+ apx + UserData[0]+ apx);
-            if(SQLx.Selectx("USERS", "ID_NUMBER", where.toString(), "").getRow()==0) break; // id중에 중복이 없으면 break;
+            int rows = 0;
+            ResultSet rs = SQLx.Selectx("ID_NUMBER",  "USERS", where.toString(), "");
+            rs.last();
+            rows = rs.getRow();
+            if(rows==0) break; // id중에 중복이 없으면 break;
         }
         System.out.println("-------------------------------------------------");
         System.out.println("Select your Role.");
@@ -61,15 +65,16 @@ public class USERS {
         boolean flag = false;
         while (true){
             System.out.print("Role : ");
-            String UserRole = bf.readLine();
-            if(UserRole.equals("MGR")||UserRole.equals("Manager")) {
+            String UserRole = bf.readLine().toUpperCase();
+            if(UserRole.equals("MGR")||UserRole.equals("MANAGER")) {
                 flag = true;
                 break;
             }
-            else if(UserRole.equals("MEM")||UserRole.equals("Member")) break;
-            else if(UserRole.equals("q")) return;
+            else if(UserRole.equals("MEM")||UserRole.equals("MEMBER")) break;
+            else if(UserRole.equals("Q")) return;
             else continue;
         }
+        //System.out.printf("%s %s %s %s %s %s",UserData[0],UserData[1],UserData[2],UserData[3],UserData[4],UserData[5]);
         SQLx.Insertx("USERS",UserData);
         if(flag) SignUpMgr(UserData[0]);
         else SignUpMem(UserData[0]);
@@ -84,13 +89,17 @@ public class USERS {
         System.out.println("----------------------------------------------------");
         System.out.println("Log In");
         System.out.println("----------------------------------------------------");
+        int rows;
         do {
             System.out.print("ID : ");
             idps[0] = bf.readLine().toUpperCase();
             System.out.println("PASSWD : ");
-            idps[1] = bf.readLine().toUpperCase();
+            idps[1] = bf.readLine();
             where.append("ID_NUMBER = " + apx + idps[0] + apx + " AND " + "PASSWD = " + apx + idps[1] + apx);
-        } while (SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "").getRow() != 1);
+            ResultSet rs = SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "");
+            rs.last();
+            rows = rs.getRow();
+        } while (rows != 1);
         AfterLogIn(idps);
         bf.close();
     }
