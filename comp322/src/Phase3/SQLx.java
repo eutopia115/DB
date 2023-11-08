@@ -205,7 +205,7 @@ public class SQLx {
             ProjectMain.conn.commit();
         }
     }
-    protected static int Selectx(String attr, String tbl) throws SQLException {
+    protected static ResultSet Selectx(String attr, String tbl) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
         sb.append("SELECT ");
@@ -213,9 +213,9 @@ public class SQLx {
         sql = sb.toString();
         ResultSet rs = ProjectMain.stmt.executeQuery(sql);
         ProjectMain.conn.commit();
-        return rs.getRow();
+        return rs;
     }
-    protected static int Selectx(String attr, String tbl, String opt) throws SQLException {
+    protected static ResultSet Selectx(String attr, String tbl, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
         sb.append("SELECT ");
@@ -224,9 +224,9 @@ public class SQLx {
         sql = sb.toString();
         ResultSet rs = ProjectMain.stmt.executeQuery(sql);
         ProjectMain.conn.commit();
-        return rs.getRow();
+        return rs;
     }
-    protected static int Selectx(String attr, String tbl, String where, String opt) throws SQLException {
+    protected static ResultSet Selectx(String attr, String tbl, String where, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
         sb.append("SELECT ");
@@ -237,9 +237,9 @@ public class SQLx {
         System.out.println(sql);
         ResultSet rs = ProjectMain.stmt.executeQuery(sql);
         ProjectMain.conn.commit();
-        return rs.getRow();
+        return rs;
     }
-    protected static int Selectx(String attr, String tbl, String where, String groups, String opt) throws SQLException {
+    protected static ResultSet Selectx(String attr, String tbl, String where, String groups, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
         sb.append("SELECT ");
@@ -250,6 +250,6 @@ public class SQLx {
         sql = sb.toString();
         ResultSet rs = ProjectMain.stmt.executeQuery(sql);
         ProjectMain.conn.commit();
-        return rs.getRow();
+        return rs;
     }
 }

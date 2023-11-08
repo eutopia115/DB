@@ -51,7 +51,7 @@ public class USERS {
             sb.append("-").append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10));
             UserData[0] = sb.toString();
             where.append("ID_NUMBER = "+ apx + UserData[0]+ apx);
-            if(SQLx.Selectx("USERS", "ID_NUMBER", where.toString(), "")==0) break; // id중에 중복이 없으면 break;
+            if(SQLx.Selectx("USERS", "ID_NUMBER", where.toString(), "").getRow()==0) break; // id중에 중복이 없으면 break;
         }
         System.out.println("-------------------------------------------------");
         System.out.println("Select your Role.");
@@ -90,7 +90,7 @@ public class USERS {
             System.out.println("PASSWD : ");
             idps[1] = bf.readLine().toUpperCase();
             where.append("ID_NUMBER = " + apx + idps[0] + apx + " AND " + "PASSWD = " + apx + idps[1] + apx);
-        } while (SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "") != 1);
+        } while (SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "").getRow() != 1);
         AfterLogIn(idps);
         bf.close();
     }
@@ -120,7 +120,7 @@ public class USERS {
         else {
             StringBuilder where = new StringBuilder();
             where.append("ID_NUMBER = "+apx+idps[0]+apx);
-            if(SQLx.Selectx("ID_NUMBER", "MANAGER", where.toString(), "") == 1){
+            if(SQLx.Selectx("ID_NUMBER", "MANAGER", where.toString(), "").getRow() == 1){
                 System.out.println("----------------------------------------------------");
                 System.out.println("Manager Screen");
                 while (true){
@@ -141,7 +141,7 @@ public class USERS {
                     }
                 }
             }
-            else if(SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "") == 1){
+            else if(SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "").getRow() == 1){
                 System.out.println("----------------------------------------------------");
                 System.out.println("User Screen");
                 while (true){
