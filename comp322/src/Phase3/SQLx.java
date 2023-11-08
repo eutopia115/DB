@@ -205,30 +205,32 @@ public class SQLx {
             ProjectMain.conn.commit();
         }
     }
-    protected static int Selectx(String[] attr, String[] tbl, String opt) throws SQLException {
+    protected static int Selectx(String attr, String tbl) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
         sb.append("SELECT ");
-        for(int i = 0; i < attr.length-1; i++) sb.append(attr[i]+comma);
-        sb.append(attr[attr.length-1]);
-        sb.append(" FROM ");
-        for(int i = 0; i < tbl.length-1; i++) sb.append(tbl[i]+comma);
-        sb.append(tbl[tbl.length-1]);
+        sb.append(" FROM "+tbl);
+        sql = sb.toString();
+        ResultSet rs = ProjectMain.stmt.executeQuery(sql);
+        ProjectMain.conn.commit();
+        return rs.getRow();
+    }
+    protected static int Selectx(String attr, String tbl, String opt) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+        String sql = "";
+        sb.append("SELECT ");
+        sb.append(" FROM "+tbl);
         sb.append(" "+opt);
         sql = sb.toString();
         ResultSet rs = ProjectMain.stmt.executeQuery(sql);
         ProjectMain.conn.commit();
         return rs.getRow();
     }
-    protected static int Selectx(String[] attr, String[] tbl, String where, String opt) throws SQLException {
+    protected static int Selectx(String attr, String tbl, String where, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
         sb.append("SELECT ");
-        for(int i = 0; i < attr.length-1; i++) sb.append(attr[i]+comma);
-        sb.append(attr[attr.length-1]);
-        sb.append(" FROM ");
-        for(int i = 0; i < tbl.length-1; i++) sb.append(tbl[i]+comma);
-        sb.append(tbl[tbl.length-1]);
+        sb.append(" FROM "+tbl);
         sb.append(" WHERE "+where);
         sb.append(" "+opt);
         sql = sb.toString();
@@ -237,19 +239,13 @@ public class SQLx {
         ProjectMain.conn.commit();
         return rs.getRow();
     }
-    protected static int Selectx(String[] attr, String[] tbl, String where, String[] groups, String opt) throws SQLException {
+    protected static int Selectx(String attr, String tbl, String where, String groups, String opt) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
         sb.append("SELECT ");
-        for(int i = 0; i < attr.length-1; i++) sb.append(attr[i]+comma);
-        sb.append(attr[attr.length-1]);
-        sb.append(" FROM ");
-        for(int i = 0; i < tbl.length-1; i++) sb.append(tbl[i]+comma);
-        sb.append(tbl[tbl.length-1]);
+        sb.append(" FROM "+tbl);
         sb.append(" WHERE "+where);
-        sb.append(" GROUP BY ");
-        for(int i = 0; i < tbl.length-1; i++) sb.append(groups[i]+comma);
-        sb.append(groups[tbl.length-1]);
+        sb.append(" GROUP BY "+groups);
         sb.append(" "+opt);
         sql = sb.toString();
         ResultSet rs = ProjectMain.stmt.executeQuery(sql);

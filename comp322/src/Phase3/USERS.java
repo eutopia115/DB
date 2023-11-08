@@ -50,10 +50,8 @@ public class USERS {
             sb.append("-").append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10));
             sb.append("-").append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10)).append(Math.abs(rand.nextInt()%10));
             UserData[0] = sb.toString();
-            String[] tables = {"USERS"};
-            String[] attrs = {"ID_NUMBER"};
             where.append("ID_NUMBER = "+ apx + UserData[0]+ apx);
-            if(SQLx.Selectx(attrs, tables, where.toString(), "")==0) break; // id중에 중복이 없으면 break;
+            if(SQLx.Selectx("USERS", "ID_NUMBER", where.toString(), "")==0) break; // id중에 중복이 없으면 break;
         }
         System.out.println("-------------------------------------------------");
         System.out.println("Select your Role.");
@@ -82,8 +80,6 @@ public class USERS {
     protected static void LogIn() throws IOException, SQLException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder where = new StringBuilder();
-        String[] attrs = {"ID_NUMBER", "PASSWD"};
-        String[] table = {"USERS"};
         String[] idps = new String[2];
         System.out.println("----------------------------------------------------");
         System.out.println("Log In");
@@ -94,32 +90,77 @@ public class USERS {
             System.out.println("PASSWD : ");
             idps[1] = bf.readLine().toUpperCase();
             where.append("ID_NUMBER = " + apx + idps[0] + apx + " AND " + "PASSWD = " + apx + idps[1] + apx);
-        } while (SQLx.Selectx(attrs, table, where.toString(), "") != 1);
+        } while (SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "") != 1);
         AfterLogIn(idps);
         bf.close();
     }
     private static void AfterLogIn(String[] idps) throws SQLException, IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        if(idps[0].equals("ADMIN") && idps[1].equals("SOCCERLINK")){
+        if(idps[0].equals("SOCCERLINK") && idps[1].equals("ADMIN!")){
             System.out.println("----------------------------------------------------");
-            System.out.println("Admin Screen");
-            System.out.println("----------------------------------------------------");
+            System.out.println("Admin Screen for management");
+            while (true){
+                System.out.println("----------------------------------------------------");
+                System.out.println("1. User");
+                System.out.println("2. Team");
+                System.out.println("3. Owner");
+                System.out.println("4. Match");
+                System.out.println("5. Training");
+                System.out.println("6. Log Out");
+                System.out.println("----------------------------------------------------");
+                System.out.print("Enter the number : ");
+                int opt = Integer.parseInt(bf.readLine());
+                switch (opt){
+                    case 1,2,3,4,5 : ADMIN.Screen(opt); break;
+                    case 6 : return;
+                    default: System.out.println("Wrong number!, Re-enter");
+                }
+            }
         }
         else {
-            String[] attrs = {"ID_NUMBER"};
-            String[] tableMan = {"MANAGER"};
-            String[] tableMem = {"MEMBER"};
             StringBuilder where = new StringBuilder();
             where.append("ID_NUMBER = "+apx+idps[0]+apx);
-            if(SQLx.Selectx(attrs, tableMan, where.toString(), "") == 1){
+            if(SQLx.Selectx("ID_NUMBER", "MANAGER", where.toString(), "") == 1){
                 System.out.println("----------------------------------------------------");
                 System.out.println("Manager Screen");
-                System.out.println("----------------------------------------------------");
+                while (true){
+                    System.out.println("----------------------------------------------------");
+                    System.out.println("1. My page");
+                    System.out.println("2. User Evaluation");
+                    System.out.println("3. Match Apply");
+                    System.out.println("4. Log Out");
+                    System.out.println("----------------------------------------------------");
+                    System.out.print("Enter the number : ");
+                    int opt = Integer.parseInt(bf.readLine());
+                    switch (opt){
+                        case 1 : APPLICATION.MyPage(idps[0],false); break;
+                        case 2 : APPLICATION.UserEval(idps[0]); break;
+                        case 3 : APPLICATION.Screen(idps[0],false,3); break;
+                        case 4 : return;
+                        default: System.out.println("Wrong number!, Re-enter");
+                    }
+                }
             }
-            else if(SQLx.Selectx(attrs, tableMem, where.toString(), "") == 1){
+            else if(SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "") == 1){
                 System.out.println("----------------------------------------------------");
                 System.out.println("User Screen");
-                System.out.println("----------------------------------------------------");
+                while (true){
+                    System.out.println("----------------------------------------------------");
+                    System.out.println("1. My page");
+                    System.out.println("2. Training");
+                    System.out.println("3. Match");
+                    System.out.println("4. Team");
+                    System.out.println("5. Log Out");
+                    System.out.println("----------------------------------------------------");
+                    System.out.print("Enter the number : ");
+                    int opt = Integer.parseInt(bf.readLine());
+                    switch (opt){
+                        case 1 : APPLICATION.MyPage(idps[0],true); break;
+                        case 2,3,4 : APPLICATION.Screen(idps[0],true,opt); break;
+                        case 5 : return;
+                        default: System.out.println("Wrong number!, Re-enter");
+                    }
+                }
             }
             else {
                 while (true){
@@ -129,15 +170,17 @@ public class USERS {
                     System.out.print("Enter the number : ");
                     int role = Integer.parseInt(bf.readLine());
                     if(role == 1) SignUpMem(idps[0]);
-                    else if (role == 2) SignUpMgr(idps[1]);
+                    else if (role == 2) SignUpMgr(idps[0]);
                     else if (role == 3) System.exit(0);
-                    else System.out.println("Wrong number!, Re-enter");
+                    else {
+                        System.out.println("Wrong number!, Re-enter");
+                        continue;
+                    }
                     System.out.println("Successfully Registered, Please Press Enter and Re-execute");
                     System.exit(0);
                 }
             }
         }
-        bf.close();
     }
     private static void SignUpMgr(String ID) throws IOException, SQLException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));

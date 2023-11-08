@@ -11,7 +11,7 @@ import java.sql.Statement;
 public class ProjectMain {
     // Commons
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-    public static final String USER_TERMPROJECT = "TERMPROJECT";
+    public static final String USER_NAME = "TERMPROJECT";
     public static final String USER_PASSWD = "COMP0322";
     public static Connection conn = null;
     public static Statement stmt = null;
@@ -30,7 +30,7 @@ public class ProjectMain {
 
         // connection 설정
         try {
-            conn = DriverManager.getConnection(URL, USER_TERMPROJECT, USER_PASSWD);
+            conn = DriverManager.getConnection(URL, USER_NAME, USER_PASSWD);
             System.out.println("Connected");
         }catch (SQLException e){
             System.err.println("Cannot get a connection : " + e.getLocalizedMessage());
@@ -58,6 +58,7 @@ public class ProjectMain {
                 case 2 : USERS.SignUp(); continue;
                 case 3 : Credits(); continue;
                 case 4 : break;
+                default: System.out.println("Wrong number!, Re-enter");
             }
             break;
         }
