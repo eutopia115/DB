@@ -104,15 +104,16 @@ public class USERS {
                 System.out.println("1. User");
                 System.out.println("2. Team");
                 System.out.println("3. Owner");
-                System.out.println("4. Match");
-                System.out.println("5. Training");
-                System.out.println("6. Log Out");
+                System.out.println("4. Field");
+                System.out.println("5. Match");
+                System.out.println("6. Training");
+                System.out.println("7. Log Out");
                 System.out.println("----------------------------------------------------");
                 System.out.print("Enter the number : ");
                 int opt = Integer.parseInt(bf.readLine());
                 switch (opt){
-                    case 1,2,3,4,5 : ADMIN.Screen(opt); break;
-                    case 6 : return;
+                    case 1,2,3,4,5,6 : ADMIN.Screen(opt); break;
+                    case 7 : return;
                     default: System.out.println("Wrong number!, Re-enter");
                 }
             }
