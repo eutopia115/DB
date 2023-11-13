@@ -37,7 +37,7 @@ public class ProjectMain {
         }
 
         conn.setAutoCommit(false);
-        //stmt = conn.createStatement();
+        stmt = conn.createStatement();
         System.out.println("------------------------------");
         System.out.println("Hello, Welcome to SoccerLink");
         while (true){

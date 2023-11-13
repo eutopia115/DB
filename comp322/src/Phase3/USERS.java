@@ -130,7 +130,9 @@ public class USERS {
         else {
             StringBuilder where = new StringBuilder();
             where.append("ID_NUMBER = "+apx+idps[0]+apx);
-            if(SQLx.Selectx("ID_NUMBER", "MANAGER", where.toString(), "").getRow() == 1){
+            ResultSet rs = SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "");
+            rs.last();
+            if(rs.getRow() == 1){
                 System.out.println("----------------------------------------------------");
                 System.out.println("Manager Screen");
                 while (true){
@@ -151,7 +153,7 @@ public class USERS {
                     }
                 }
             }
-            else if(SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "").getRow() == 1){
+            else if(rs.getRow() == 1){
                 System.out.println("----------------------------------------------------");
                 System.out.println("User Screen");
                 while (true){
