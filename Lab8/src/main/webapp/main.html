@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="EUC-KR">
+    <title>COMP322: Introduction to Databases </title>
+</head>
+<body>
+    <h2>Lab #8</h2>
+    <h3>:: JSP Practice ::</h3>
+    <form action = "getYourData.jsp" method="post">
+        <h4>Provide your information</h4>
+        First Name: <input type="text" name="first_name">
+        <br/>
+        Last Name: <input type="text" name="last_name"/>
+        <br/>
+        studentID: <input type="text" name="sID"/>
+        <br/>
+        <h4>Select which section you're taking</h4>
+        <input type="checkbox" name="course" value="COMP32201"/>COMP32201
+        <input type="checkbox" name="course" value="COMP32202"/>COMP32202
+        <input type="checkbox" name="course" value="COMP32203"/>COMP32203
+        <input type="checkbox" name="course" value="COMP32204"/>COMP32204
+        <input type="checkbox" name="course" value="COMP32205"/>COMP32205
+        <input type="checkbox" name="course" value="COMP32206"/>COMP32206
+        <input type="checkbox" name="course" value="none" checked="nothing"/>Nothing
+        <br/>
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>
