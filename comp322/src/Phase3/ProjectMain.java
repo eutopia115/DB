@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class ProjectMain {
     // Commons
@@ -40,8 +41,8 @@ public class ProjectMain {
         stmt = conn.createStatement();
         System.out.println("------------------------------");
         System.out.println("Hello, Welcome to SoccerLink");
-        while (true){
-            BufferedReader bf= new BufferedReader(new InputStreamReader(System.in));
+        //while (true){
+            BufferedReader bfxx= new BufferedReader(new InputStreamReader(System.in));
             System.out.println("------------------------------");
             System.out.println("Select Option");
             System.out.println("1. Log In");
@@ -50,7 +51,7 @@ public class ProjectMain {
             System.out.println("4. Quit");
             System.out.println("------------------------------");
             System.out.print("Option Number : ");
-            int mainOpt = Integer.parseInt(bf.readLine());
+            int mainOpt = Integer.parseInt(bfxx.readLine());
             boolean flag = false;
             switch (mainOpt) {
                 case 1 : USERS.LogIn(); break;
@@ -59,8 +60,9 @@ public class ProjectMain {
                 case 4 : flag = true; break;
                 default: System.out.println("Wrong number!, Re-enter");
             }
-            if (flag) break;
-        }
+            //if (flag) break;
+            bfxx.close();
+        //}
         conn.close();
         stmt.close();
     }

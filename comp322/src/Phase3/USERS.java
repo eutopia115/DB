@@ -55,6 +55,7 @@ public class USERS {
             ResultSet rs = SQLx.Selectx("ID_NUMBER",  "USERS", where.toString(), "");
             rs.last();
             rows = rs.getRow();
+            sb.setLength(0);
             if(rows==0) break; // id중에 중복이 없으면 break;
         }
         System.out.println("-------------------------------------------------");
@@ -93,12 +94,13 @@ public class USERS {
         do {
             System.out.print("ID : ");
             idps[0] = bf.readLine().toUpperCase();
-            System.out.println("PASSWD : ");
+            System.out.print("PASSWD : ");
             idps[1] = bf.readLine();
             where.append("ID_NUMBER = " + apx + idps[0] + apx + " AND " + "PASSWD = " + apx + idps[1] + apx);
             ResultSet rs = SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "");
             rs.last();
             rows = rs.getRow();
+            where.setLength(0);
         } while (rows != 1);
         AfterLogIn(idps);
         bf.close();
@@ -132,6 +134,7 @@ public class USERS {
             where.append("ID_NUMBER = "+apx+idps[0]+apx);
             ResultSet rs = SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "");
             rs.last();
+            where.setLength(0);
             if(rs.getRow() == 1){
                 System.out.println("----------------------------------------------------");
                 System.out.println("Manager Screen");
