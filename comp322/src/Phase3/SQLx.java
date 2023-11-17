@@ -75,15 +75,6 @@ public class SQLx {
             sb.append(apx+data[0]+apx+comma);
             sb.append(apx+data[1]+apx+rparen);
         }
-        else if(tbl.equals("TRAIN_REG")){
-            sb.append(lparen);
-            sb.append(apx+data[0]+apx+comma);
-            sb.append(apx+data[1]+apx+comma);
-            sb.append(apx+data[2]+apx+comma);
-            sb.append(apx+data[3]+apx+comma);
-            sb.append(data[4]+comma);
-            sb.append(data[5]+rparen);
-        }
         else if(tbl.equals("MATCH")){
             sb.append(lparen);
             sb.append(apx+data[0]+apx+comma);
@@ -93,12 +84,6 @@ public class SQLx {
             sb.append(apx+data[4]+apx+rparen);
         }
         else if(tbl.equals("MATCH_APP_MEMBER")){
-            sb.append(lparen);
-            sb.append(apx+data[1]+apx+comma);
-            sb.append(apx+data[2]+apx+comma);
-            sb.append(data[3]+rparen);
-        }
-        else if(tbl.equals("MATCH_APP_MANAGER")){
             sb.append(lparen);
             sb.append(apx+data[1]+apx+comma);
             sb.append(apx+data[2]+apx+comma);
@@ -144,15 +129,10 @@ public class SQLx {
             sb.append("CLASS_ID = "+apx+key[0]+apx+" AND ");
             sb.append("TUTEE_ID = "+apx+key[1]+apx);
         }
-        else if(tbl.equals("TRAIN_REG")) sb.append("CLASS_ID = "+apx+key[0]+apx);
         else if(tbl.equals("MATCH")) sb.append("MATCH_ID = "+apx+key[0]+apx);
         else if(tbl.equals("MATCH_APP_MEMBER")){
             sb.append("MATCH_ID = "+apx+key[0]+apx+" AND ");
             sb.append("MEMBER_ID = "+apx+key[1]+apx);
-        }
-        else if(tbl.equals("MATCH_APP_MANAGER")){
-            sb.append("MATCH_ID = "+apx+key[0]+apx+" AND ");
-            sb.append("MANAGER_ID = "+apx+key[1]+apx);
         }
         sql = sb.toString();
         int rs = ProjectMain.stmt.executeUpdate(sql);
