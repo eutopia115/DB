@@ -134,3 +134,4 @@ CAUTION
 1. login 기능을 추가하면서, 개인 보안을 위해 USERS Relation에 PASSWD Attribute를 추가함.
 2. 모든 ID_NUMBER은 INSERT 후 형식에 맞추어 랜덤하게 배정됨.(코레일톡이나 SR의 회원번호 시스템)
 3. ProjectMain : 메인화면, 크레딧 / SQLx : SQL문 입력 편하게 만드는 클래스 / USERS : 회원가입, 로그인 / ADMIN : 관리자 모드 / APPLICATION : 유저(멤버, 매니저) 모드
+4. Manager-Match, Training-tutor는  1:n관계로 재판단하여 MATCH_APP_MANAGER + MATCH = MATCH, TRAIN_REG + TRAINING = TRAINING로 릴레이션 간소화함.
