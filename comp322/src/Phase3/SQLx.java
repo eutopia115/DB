@@ -187,15 +187,10 @@ public class SQLx {
             sb.append("CLASS_ID = "+apx+key[0]+apx+" AND ");
             sb.append("TUTEE_ID = "+apx+key[1]+apx);
         }
-        else if(tbl.equals("TRAIN_REG")) sb.append("CLASS_ID = "+apx+key[0]+apx);
         else if(tbl.equals("MATCH")) sb.append("MATCH_ID = "+apx+key[0]+apx);
         else if(tbl.equals("MATCH_APP_MEMBER")){
             sb.append("MATCH_ID = "+apx+key[0]+apx+" AND ");
             sb.append("MEMBER_ID = "+apx+key[1]+apx);
-        }
-        else if(tbl.equals("MATCH_APP_MANAGER")){
-            sb.append("MATCH_ID = "+apx+key[0]+apx+" AND ");
-            sb.append("MANAGER_ID = "+apx+key[1]+apx);
         }
         sql = sb.toString();
         int rs = ProjectMain.stmt.executeUpdate(sql);
