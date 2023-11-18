@@ -15,7 +15,8 @@ public class ProjectMain {
     public static final String USER_NAME = "TERMPROJECT";
     public static final String USER_PASSWD = "COMP0322";
     public static Connection conn = null;
-    public static Statement stmt = null;
+    //public static Statement stmt = null;
+    public static BufferedReader bfxx= new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException, SQLException {
 
         //jdbc 드라이버 불러오기
@@ -38,11 +39,10 @@ public class ProjectMain {
         }
 
         conn.setAutoCommit(false);
-        stmt = conn.createStatement();
+        //stmt = conn.createStatement();
         System.out.println("------------------------------");
         System.out.println("Hello, Welcome to SoccerLink");
-        //while (true){
-            BufferedReader bfxx= new BufferedReader(new InputStreamReader(System.in));
+        while (true){
             System.out.println("------------------------------");
             System.out.println("Select Option");
             System.out.println("1. Log In");
@@ -60,11 +60,12 @@ public class ProjectMain {
                 case 4 : flag = true; break;
                 default: System.out.println("Wrong number!, Re-enter");
             }
-            //if (flag) break;
-            bfxx.close();
-        //}
+            if (flag) break;
+
+        }
+        bfxx.close();
         conn.close();
-        stmt.close();
+        //stmt.close();
     }
     private static void Credits() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));

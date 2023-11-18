@@ -4,6 +4,7 @@ import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SQLx {
     private static final char apx = '\'';
@@ -12,6 +13,7 @@ public class SQLx {
     private static final String rparen = ") ";
     protected static void Insertx(String tbl, String[] data) throws SQLException {
         StringBuilder sb = new StringBuilder();
+        Statement stmt = ProjectMain.conn.createStatement();
         String sql = "";
         sb.append("INSERT INTO ").append(tbl);
         sb.append(" VALUES ");
@@ -95,12 +97,13 @@ public class SQLx {
         }
         System.out.println(sql);
         sql = sb.toString();
-        int rs = ProjectMain.stmt.executeUpdate(sql);
+        int rs = stmt.executeUpdate(sql);
         ProjectMain.conn.commit();
     }
     protected static void Updatex(String tbl, String target, String data, String[] key) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
+        Statement stmt = ProjectMain.conn.createStatement();
         sb.append("UPDATE "+tbl);
         sb.append(" SET "+target);
         sb.append(" = "+apx+data+apx);
@@ -135,12 +138,13 @@ public class SQLx {
             sb.append("MEMBER_ID = "+apx+key[1]+apx);
         }
         sql = sb.toString();
-        int rs = ProjectMain.stmt.executeUpdate(sql);
+        int rs = stmt.executeUpdate(sql);
         ProjectMain.conn.commit();
     }
     protected static void Deletex(String tbl, String[] key) throws SQLException {
         StringBuilder sb = new StringBuilder();
         String sql = "";
+        Statement stmt = ProjectMain.conn.createStatement();
         sb.append("DELETE FROM "+tbl);
         sb.append(" WHERE ");
         if(tbl.equals("USERS"))
@@ -173,7 +177,7 @@ public class SQLx {
             sb.append("MEMBER_ID = "+apx+key[1]+apx);
         }
         sql = sb.toString();
-        int rs = ProjectMain.stmt.executeUpdate(sql);
+        int rs = stmt.executeUpdate(sql);
         if(rs == 0){
             ProjectMain.conn.commit();
         }
