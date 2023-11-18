@@ -129,10 +129,14 @@ public class USERS {
         else {
             StringBuilder where = new StringBuilder();
             where.append("ID_NUMBER = "+apx+idps[0]+apx);
-            ResultSet rs = SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "");
-            rs.last();
+            ResultSet rsMem = SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "");
+            ResultSet rsMan = SQLx.Selectx("ID_NUMBER", "MANAGER", where.toString(), "");
+            rsMan.last();
+            rsMem.last();
             where.setLength(0);
-            if(rs.getRow() == 1){
+            if(rsMan.getRow() == 1){
+                rsMem.close();
+                rsMan.close();
                 System.out.println("----------------------------------------------------");
                 System.out.println("Manager Screen");
                 while (true){
@@ -153,7 +157,9 @@ public class USERS {
                     }
                 }
             }
-            else if(rs.getRow() == 1){
+            else if(rsMem.getRow() == 1){
+                rsMem.close();
+                rsMan.close();
                 System.out.println("----------------------------------------------------");
                 System.out.println("User Screen");
                 while (true){
@@ -176,6 +182,8 @@ public class USERS {
             }
             else {
                 while (true){
+                    rsMem.close();
+                    rsMan.close();
                     System.out.println("----------------------------------------------------");
                     System.out.println("Your Role is missed, Pick your role");
                     System.out.println("1. Member, 2. Manager, 3. Quit");
