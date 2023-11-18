@@ -7,7 +7,6 @@ import java.util.Random;
 public class USERS {
     private static final char apx = '\'';
     protected static void SignUp() throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("----------------------------------------------------");
         System.out.print("Sign Up\n");
         System.out.println("----------------------------------------------------");
@@ -17,30 +16,30 @@ public class USERS {
         do {
             System.out.println("Insert your name in English. Number of Character have to under 30");
             System.out.print("Name : ");
-            UserData[1] = bf.readLine();
+            UserData[1] = ProjectMain.bf.readLine();
         } while (UserData[1].length() >= 30);
 
         do{
             System.out.println("Insert new Password. Number of Character have to be between 9 and 20");
             System.out.print("Password : ");
-            UserData[5] = bf.readLine();
+            UserData[5] = ProjectMain.bf.readLine();
         } while (UserData[5].length() > 20 || UserData[5].length() < 9);
 
         do {
             System.out.println("Insert your biological Sex. Male = M, Female = F");
             System.out.print("Sex : ");
-            UserData[2] = bf.readLine().toUpperCase();
+            UserData[2] = ProjectMain.bf.readLine().toUpperCase();
         } while (!UserData[2].equals("M") && !UserData[2].equals("F"));
 
         do {
             System.out.println("Insert your Year of Birth. ex) 1998");
             System.out.print("Year of Birth : ");
-            UserData[3] = bf.readLine();
+            UserData[3] = ProjectMain.bf.readLine();
         } while (UserData[3].length() != 4);
 
         System.out.println("Insert your Job in English. ex) computer engineer");
         System.out.print("Job : ");
-        UserData[4] = bf.readLine();
+        UserData[4] = ProjectMain.bf.readLine();
 
         while (true){
             Random rand = new Random(System.currentTimeMillis());
@@ -66,7 +65,7 @@ public class USERS {
         boolean flag = false;
         while (true){
             System.out.print("Role : ");
-            String UserRole = bf.readLine().toUpperCase();
+            String UserRole = ProjectMain.bf.readLine().toUpperCase();
             if(UserRole.equals("MGR")||UserRole.equals("MANAGER")) {
                 flag = true;
                 break;
@@ -81,10 +80,8 @@ public class USERS {
         else SignUpMem(UserData[0]);
         System.out.println("----------------------------------------------------");
         System.out.printf("Your ID_NUMBER is %s\n", UserData[0]);
-        bf.close();
     }
     protected static void LogIn() throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder where = new StringBuilder();
         String[] idps = new String[2];
         System.out.println("----------------------------------------------------");
@@ -93,9 +90,9 @@ public class USERS {
         int rows;
         do {
             System.out.print("ID : ");
-            idps[0] = bf.readLine().toUpperCase();
+            idps[0] = ProjectMain.bf.readLine().toUpperCase();
             System.out.print("PASSWD : ");
-            idps[1] = bf.readLine();
+            idps[1] = ProjectMain.bf.readLine();
             where.append("ID_NUMBER = " + apx + idps[0] + apx + " AND " + "PASSWD = " + apx + idps[1] + apx);
             ResultSet rs = SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "");
             rs.last();
@@ -103,10 +100,8 @@ public class USERS {
             where.setLength(0);
         } while (rows != 1);
         AfterLogIn(idps);
-        bf.close();
     }
     private static void AfterLogIn(String[] idps) throws SQLException, IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         if(idps[0].equals("SOCCERLINK") && idps[1].equals("ADMIN!")){
             System.out.println("----------------------------------------------------");
             System.out.println("Admin Screen for management");
@@ -121,7 +116,7 @@ public class USERS {
                 System.out.println("7. Log Out");
                 System.out.println("----------------------------------------------------");
                 System.out.print("Enter the number : ");
-                int opt = Integer.parseInt(bf.readLine());
+                int opt = Integer.parseInt(ProjectMain.bf.readLine());
                 switch (opt){
                     case 1,2,3,4,5,6 : ADMIN.Screen(opt); break;
                     case 7 : return;
@@ -146,7 +141,7 @@ public class USERS {
                     System.out.println("4. Log Out");
                     System.out.println("----------------------------------------------------");
                     System.out.print("Enter the number : ");
-                    int opt = Integer.parseInt(bf.readLine());
+                    int opt = Integer.parseInt(ProjectMain.bf.readLine());
                     switch (opt){
                         case 1 : APPLICATION.MyPage(idps[0],false); break;
                         case 2 : APPLICATION.UserEval(idps[0]); break;
@@ -168,7 +163,7 @@ public class USERS {
                     System.out.println("5. Log Out");
                     System.out.println("----------------------------------------------------");
                     System.out.print("Enter the number : ");
-                    int opt = Integer.parseInt(bf.readLine());
+                    int opt = Integer.parseInt(ProjectMain.bf.readLine());
                     switch (opt){
                         case 1 : APPLICATION.MyPage(idps[0],true); break;
                         case 2,3,4 : APPLICATION.Screen(idps[0],true,opt); break;
@@ -183,7 +178,7 @@ public class USERS {
                     System.out.println("Your Role is missed, Pick your role");
                     System.out.println("1. Member, 2. Manager, 3. Quit");
                     System.out.print("Enter the number : ");
-                    int role = Integer.parseInt(bf.readLine());
+                    int role = Integer.parseInt(ProjectMain.bf.readLine());
                     if(role == 1) SignUpMem(idps[0]);
                     else if (role == 2) SignUpMgr(idps[0]);
                     else if (role == 3) System.exit(0);
@@ -198,16 +193,14 @@ public class USERS {
         }
     }
     private static void SignUpMgr(String ID) throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("----------------------------------------------------");
         System.out.println("Sign up : Manager page, Insert your Account Number");
         System.out.println("----------------------------------------------------");
         System.out.print("Account number : ");
         String[] data = new String[2];
         data[0] = ID;
-        data[1] = bf.readLine();
+        data[1] = ProjectMain.bf.readLine();
         SQLx.Insertx("MANAGER", data);
-        bf.close();
     }
     private static void SignUpMem(String ID) throws SQLException {
         String[] data = new String[2];

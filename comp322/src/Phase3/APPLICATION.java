@@ -6,7 +6,6 @@ import java.sql.*;
 import java.util.Random;
 public class APPLICATION {
     protected static void MyPage(String id, boolean role) {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
             System.out.println("----------------------------------------------------");
@@ -18,7 +17,7 @@ public class APPLICATION {
             System.out.print("Enter the number: ");
 
             try {
-                int opt = Integer.parseInt(bf.readLine());
+                int opt = Integer.parseInt(ProjectMain.bf.readLine());
                 switch (opt) {
                     case 1:
                         System.out.println("Choose an option to update:");
@@ -26,14 +25,14 @@ public class APPLICATION {
                         System.out.println("2. Sex");
                         System.out.println("3. Year of Birth");
                         System.out.println("4. Job");
-                        int changeOption = Integer.parseInt(bf.readLine());
+                        int changeOption = Integer.parseInt(ProjectMain.bf.readLine());
                         System.out.print("Enter your choice (1-4): ");
                         String newValue1, newValue2;
                         do {
                             System.out.print("Enter the new value for the chosen option: ");
-                            newValue1 = bf.readLine();
+                            newValue1 = ProjectMain.bf.readLine();
                             System.out.print("Re-enter the new value to confirm: ");
-                            newValue2 = bf.readLine();
+                            newValue2 = ProjectMain.bf.readLine();
                             //무결성 처리 해야함
                             if (!newValue1.equals(newValue2)) {
                                 System.out.println("The entered values do not match. Please try again.");
@@ -44,7 +43,7 @@ public class APPLICATION {
                     case 2:
                         System.out.print("Enter the amount to charge: ");
                         try {
-                            int amount = Integer.parseInt(bf.readLine());
+                            int amount = Integer.parseInt(ProjectMain.bf.readLine());
                             CashCharge(id, amount);
                             System.out.println("Charge completed successfully.");
                         } catch (NumberFormatException e) {
@@ -53,7 +52,7 @@ public class APPLICATION {
                         break;
                     case 3:
                         System.out.println("Are you sure you want to delete your account? Type 'I want to delete my account' to confirm.");
-                        String confirmation = bf.readLine();
+                        String confirmation = ProjectMain.bf.readLine();
                         if ("I want to delete my account".equals(confirmation)) {
                             Secession(id);
                             System.out.println("Your account has been successfully deleted.");
