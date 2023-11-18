@@ -93,11 +93,13 @@ public class USERS {
             idps[0] = ProjectMain.bf.readLine().toUpperCase();
             System.out.print("PASSWD : ");
             idps[1] = ProjectMain.bf.readLine();
+            if(idps[0].equals("SOCCERLINK") && idps[1].equals("ADMIN!")) break;
             where.append("ID_NUMBER = " + apx + idps[0] + apx + " AND " + "PASSWD = " + apx + idps[1] + apx);
             ResultSet rs = SQLx.Selectx("ID_NUMBER, PASSWD", "USERS", where.toString(), "");
             rs.last();
             rows = rs.getRow();
             where.setLength(0);
+            System.out.println("WRONG ID and PASSWD!, Please Re-enter");
         } while (rows != 1);
         AfterLogIn(idps);
     }

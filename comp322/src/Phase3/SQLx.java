@@ -95,7 +95,6 @@ public class SQLx {
             System.err.println("Insert Error");
             System.exit(1);
         }
-        System.out.println(sql);
         sql = sb.toString();
         int rs = stmt.executeUpdate(sql);
         ProjectMain.conn.commit();
@@ -213,7 +212,6 @@ public class SQLx {
         sb.append(" WHERE "+where);
         sb.append(" "+opt);
         sql = sb.toString();
-        System.out.println(sql);
         PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = stmt.executeQuery(sql);
         ProjectMain.conn.commit();
