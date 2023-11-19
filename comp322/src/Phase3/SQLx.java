@@ -70,7 +70,12 @@ public class SQLx {
             sb.append(lparen);
             sb.append(apx+data[0]+apx+comma);
             sb.append(apx+data[1]+apx+comma);
-            sb.append(apx+data[2]+apx+rparen);
+            sb.append(apx+data[2]+apx+comma);
+            sb.append(apx+data[3]+apx+comma);
+            sb.append(apx+data[4]+apx+comma);
+            sb.append(apx+data[5]+apx+comma);
+            sb.append(data[6]+comma);
+            sb.append(data[7]+rparen);
         }
         else if(tbl.equals("TRAIN_ENROLLS")){
             sb.append(lparen);
@@ -83,7 +88,9 @@ public class SQLx {
             sb.append(apx+data[1]+apx+comma);
             sb.append(apx+data[2]+apx+comma);
             sb.append(apx+data[3]+apx+comma);
-            sb.append(apx+data[4]+apx+rparen);
+            sb.append(apx+data[4]+apx+comma);
+            sb.append(apx+data[5]+apx+comma);
+            sb.append(data[6]+rparen);
         }
         else if(tbl.equals("MATCH_APP_MEMBER")){
             sb.append(lparen);
