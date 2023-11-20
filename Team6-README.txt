@@ -135,3 +135,9 @@ CAUTION
 2. 모든 ID_NUMBER은 INSERT 후 형식에 맞추어 랜덤하게 배정됨.(코레일톡이나 SR의 회원번호 시스템)
 3. ProjectMain : 메인화면, 크레딧 / SQLx : SQL문 입력 편하게 만드는 클래스 / USERS : 회원가입, 로그인 / ADMIN : 관리자 모드 / APPLICATION : 유저(멤버, 매니저) 모드
 4. Manager-Match, Training-tutor는  1:n관계로 재판단하여 MATCH_APP_MANAGER + MATCH = MATCH, TRAIN_REG + TRAINING = TRAINING로 릴레이션 간소화함.
+5. Query 구현, Phase 2에 비해 대부분 수정 : 개발한 프로그램에 알맞은 조회 서비스 제공을 위해
+   - 관리자 : 1) Prepaid_money의 총량 계산(Aggregate), 2) Owner가 보유한 Field 확인(Single table Query), 3) Match/Training별 참가인원 및 총 비용 최신순 정렬(Aggregation, join, order by) 
+   - 유저 : 4) Member의 자기 정보 조회(Join predicate in where), 5) Manager의 자기 정보 조회(Join predicate in where), 6) 자기가 속한 Team 조회(SubQuery in where), 
+           7) 자기가 속한 Match의 내용 조회(By Exist, join, order by), 8) 자기가 속한 Training의 내용 조회(By In, join, order by), 
+           9) Subject/Recommend_tier에 따른 Training 검색(set), 10) Time/Place에 따른 Match 검색(set)
+6. 정보 조회에 이어 update문 구성으로 정보 갱신 기능 추가

@@ -115,13 +115,15 @@ public class USERS {
                 System.out.println("4. Field");
                 System.out.println("5. Match");
                 System.out.println("6. Training");
-                System.out.println("7. Log Out");
+                System.out.println("7. Check Some Information");
+                System.out.println("8. Log Out");
                 System.out.println("----------------------------------------------------");
                 System.out.print("Enter the number : ");
                 int opt = Integer.parseInt(ProjectMain.bf.readLine());
                 switch (opt){
                     case 1,2,3,4,5,6 : ADMIN.Screen(opt); break;
-                    case 7 : return;
+                    case 7 : ADMIN.Select();
+                    case 8 : return;
                     default: System.out.println("Wrong number!, Re-enter");
                 }
             }

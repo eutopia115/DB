@@ -16,7 +16,6 @@ public class ADMIN {
             System.out.println("----------------------------------------------------");
             System.out.println("1. Update");
             System.out.println("2. Delete");
-            //System.out.println("3. Select"); // application에서 check로 필요한 것만 조회하도록 구현
             System.out.println("3. Log Out");
             System.out.println("----------------------------------------------------");
             System.out.print("Enter the number : ");
@@ -283,14 +282,83 @@ public class ADMIN {
                 SQLx.Deletex(tbls[opt-1], key);
         }
     }
-    private static void Select(int opt){
-        switch (opt){
-            case 1 : break;
-            case 2 : break;
-            case 3 : break;
-            case 4 : break;
-            case 5 : break;
-            case 6 : break;
+    protected static void Select() throws SQLException, IOException {
+        System.out.println("Admin's Check");
+        while (true){
+            System.out.println("----------------------------------------------------");
+            System.out.println("1. Check Sum of Prepaid_money");
+            System.out.println("2. Check the Fields/Owner");
+            System.out.println("3. MatchData Order by date");
+            System.out.println("4. TrainingData Order by date");
+            System.out.println("5. Back to Menu");
+            System.out.println("----------------------------------------------------");
+            System.out.print("Enter the number : ");
+            ResultSet rs;
+            int opt = Integer.parseInt(ProjectMain.bf.readLine());
+            switch (opt){
+                case 1 :
+                    rs = SQLx.Selectx("SUM(PREPAID_MONEY)", "MEMBER");
+                    while (rs.next()) System.out.printf("Sum of prepaid_money : %d", rs.getInt(1));
+                break;
+                //SELECT SUM(PREPAID_MONEY)
+                //FROM MEMBER;
+                case 2 :
+                    System.out.print("Input Owner's Phone Number");
+                    String hp = ProjectMain.bf.readLine();
+                    rs = SQLx.Selectx("*","FIELD","WHERE OWNER_HP = "+ hp);
+                    System.out.println("this owner has these fields ");
+                    for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
+                        System.out.printf("%30s", rs.getMetaData().getColumnName(i));
+                    System.out.println("--------------------------------------------------------------");
+                    while (rs.next()) {
+                        for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
+                            System.out.printf("%30s", rs.getString(i));
+                    }
+                    break;
+                //SELECT *
+                //FROM FIELD
+                //WHERE OWNER_HP = '053-437-9417';
+                case 3 :
+                    rs = SQLx.Selectx("*","MATCH NATURAL JOIN MATCH_EVAL_VIEW NATURAL JOIN " +
+                            "(SELECT MATCH_ID, COUNT(MEMBER_ID), SUM(COST) FROM MATCH_APP_MEMBER GROUP BY MATCH_ID",
+                            "ORDER BY DATE_TIME DESC");
+                    for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
+                        System.out.printf("%13s", rs.getMetaData().getColumnName(i));
+                    System.out.println("--------------------------------------------------------------");
+                    while (rs.next()) {
+                        for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
+                            if(i==7 || i==9 || i==10) System.out.printf("%13d", rs.getInt(i));
+                            else System.out.printf("%13s", rs.getString(i));
+                    }
+                    break;
+                //SELECT *
+                //FROM MATCH NATURAL JOIN (
+                //    SELECT MATCH_ID, count(MEMBER_ID), sum(cost)
+                //    FROM MATCH_APP_MEMBER
+                //    GROUP BY MATCH_ID)
+                //ORDER BY DATE_TIME DESC ;
+                case 4 :
+                    rs = SQLx.Selectx("*","TRAINING NATURAL JOIN " +
+                            "(SELECT CLASS_ID, COUNT(TUTEE_ID) FROM TRAIN_ENROLLS GROUP BY MATCH_ID",
+                        "ORDER BY DATE_TIME DESC");
+                    for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
+                        System.out.printf("%22s", rs.getMetaData().getColumnName(i));
+                    System.out.println("--------------------------------------------------------------");
+                    while (rs.next()) {
+                        for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
+                            if(i>=7) System.out.printf("%22d", rs.getInt(i));
+                            else System.out.printf("%22s", rs.getString(i));
+                    }
+                    break;
+                //SELECT *
+                //FROM TRAINING NATURAL JOIN (
+                //    SELECT CLASS_ID, count(TUTEE_ID)
+                //    FROM TRAIN_ENROLLS
+                //    GROUP BY CLASS_ID)
+                //ORDER BY DATE_TIME DESC ;
+                case 5 : return;
+                default: System.out.println("Wrong number!, Re-enter");
+            }
         }
     }
 

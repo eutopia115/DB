@@ -18,7 +18,7 @@ SELECT MATCH_ID, PLACE_ID, NAME
 FROM MATCH, FIELD
 WHERE FIELD.OWNER_HP LIKE '%8%' AND FIELD.FIELD_ID = MATCH.PLACE_ID
 
--- Type 3: Aggregation + multi-way join with join predicates + with GROUP BY
+-- Typ  e 3: Aggregation + multi-way join with join predicates + with GROUP BY
 -- 3.1
 SELECT TEAM.TEAM_ID, TEAM_NAME, COUNT(TEAM_MEM.MEM_ID) AS TEAM_MEM_CNT
 FROM TEAM INNER JOIN TEAM_MEM ON TEAM.TEAM_ID = TEAM_MEM.TEAM_ID
