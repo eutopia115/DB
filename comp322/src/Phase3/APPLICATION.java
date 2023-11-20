@@ -272,6 +272,26 @@ public class APPLICATION {
 
     } // insert relationship rela -> PREPAID_MONEY CHANGE REFELCT
 
-    private static void Check() {
+    private static void Check(int opt) {
+        //4) Member의 자기 정보 조회(Join predicate in where),
+        //5) Manager의 자기 정보 조회(Join predicate in where),
+        //6) 자기가 속한 Team 조회(SubQuery in where),
+        //7) 자기가 속한 Match의 내용 조회(By Exist, join, order by),
+        //8) 자기가 속한 Training의 내용 조회(By In, join, order by),
+        //9) Subject/Recommend_tier에 따른 Training 검색(set),
+        //10) Time/Place에 따른 Match 검색(set)
+        //opt = sql문 번호 ex) Check(1); Member의 자기정보 조회 수행됨.
+        //Mypage에서 opt 번호를 parameter로 함수 호출하면 됨.
+        //member랑 manager랑 mypage 화면 달라야 함, 가져올 내용 다르니까
+        // -> role true/false로 구분해 뒀으니 if문으로 구분해 출력하고 입력받기(mypage 수정 필요)
+        // 다른 sql 문 필요하면 알아서 추가
+        switch (opt){
+            case : //
+            case :
+            case :
+            case :
+            case :
+            case :
+        }
     } // select where id_num in ~ ex) my teams, my matches
 }
