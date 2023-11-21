@@ -659,10 +659,11 @@ public class APPLICATION {
         try {
             switch (opt) {
                 case 1: // Member의 자기 정보 및 캐시 정보 조회 P2_3.4.1
-                    String attr = "U.*, M.PREPAID_MONEY";
-                    String tbl = "USERS U, MEMBER M";
-                    String where = "U.ID_NUMBER = M.ID_NUMBER AND U.ID_NUMBER = '" + id + "'";
-                    ResultSet rsMember = Selectx(attr, tbl, where, "");
+
+                    String attr = "U.*, M.PREPAID_MONEY, MV.TIER";
+                    String tbl = "USERS U, MEMBER M, MEMBER_EVAL_VIEW MV";
+                    String where = "U.ID_NUMBER = M.ID_NUMBER and U.ID_NUMBER = MV.MEM_ID and U.ID_NUMBER = '" + id + "'";
+                    ResultSet rsMember = SQLx.Selectx(attr, tbl, where, "");
                     if (rsMember.next()) {
                         System.out.println("Member Information:");
                         System.out.println("ID: " + rsMember.getString("ID_NUMBER"));
@@ -671,6 +672,7 @@ public class APPLICATION {
                         System.out.println("Year of Birth: " + rsMember.getString("YOB"));
                         System.out.println("Job: " + rsMember.getString("JOB"));
                         System.out.println("Cash: " + rsMember.getString("PREPAID_MONEY"));
+                        System.out.println("Evaluation Tier: " + rsMember.getString("TIER"));
                         // 다른 필요한 멤버 정보 추가
                     } else {
                         System.out.println("No member information available.");
