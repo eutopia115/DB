@@ -658,7 +658,7 @@ public class APPLICATION {
     private static void Check(int opt, String id) {
         try {
             switch (opt) {
-                case 1: // Member의 자기 정보 및 캐시 정보 조회 P2_3.4.1
+                case 1: // Member의 자기 정보 및 캐시 정보 조회 P2_3.2.2
 
                     String attr = "U.*, M.PREPAID_MONEY, MV.TIER";
                     String tbl = "USERS U, MEMBER M, MEMBER_EVAL_VIEW MV";
