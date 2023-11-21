@@ -130,7 +130,7 @@ public class USERS {
         }
         else {
             StringBuilder where = new StringBuilder();
-            where.append("ID_NUMBER = "+apx+idps[0]+apx);
+            where.append("ID_NUMBER = "+apx+idps[0]+apx); // P2_3.1.1
             ResultSet rsMem = SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "");
             ResultSet rsMan = SQLx.Selectx("ID_NUMBER", "MANAGER", where.toString(), "");
             rsMan.last();

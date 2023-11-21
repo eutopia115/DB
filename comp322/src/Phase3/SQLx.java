@@ -88,9 +88,11 @@ public class SQLx {
             sb.append(apx+data[1]+apx+comma);
             sb.append(apx+data[2]+apx+comma);
             sb.append(apx+data[3]+apx+comma);
-            sb.append(apx+data[4]+apx+comma);
+            sb.append(data[4]+comma);
             sb.append(apx+data[5]+apx+comma);
-            sb.append(data[6]+rparen);
+            sb.append(data[6]+comma);
+            sb.append(data[7]+comma);
+            sb.append(data[8]+rparen);
         }
         else if(tbl.equals("MATCH_APP_MEMBER")){
             sb.append(lparen);

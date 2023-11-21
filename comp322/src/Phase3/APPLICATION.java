@@ -658,10 +658,10 @@ public class APPLICATION {
     private static void Check(int opt, String id) {
         try {
             switch (opt) {
-                case 1: // Member의 자기 정보 및 캐시 정보 조회
+                case 1: // Member의 자기 정보 및 캐시 정보 조회 P2_3.4.1
                     String attr = "U.*, M.PREPAID_MONEY";
-                    String tbl = "USERS U INNER JOIN MEMBER M ON U.ID_NUMBER = M.ID_NUMBER";
-                    String where = "U.ID_NUMBER = '" + id + "'";
+                    String tbl = "USERS U, MEMBER M";
+                    String where = "U.ID_NUMBER = M.ID_NUMBER AND U.ID_NUMBER = '" + id + "'";
                     ResultSet rsMember = Selectx(attr, tbl, where, "");
                     if (rsMember.next()) {
                         System.out.println("Member Information:");
@@ -678,7 +678,7 @@ public class APPLICATION {
                     rsMember.close();
                     break;
 
-                case 2: // Manager의 자기 정보 조회
+                case 2: // Manager의 자기 정보 조회 P2_3.7.1
                     ResultSet rsManager = Selectx("*", "USERS U INNER JOIN MANAGER M ON U.ID_NUMBER = M.ID_NUMBER", "U.ID_NUMBER = '" + id + "'", "");
                     if (rsManager.next()) {
                         System.out.println("Manager Information:");
@@ -694,7 +694,7 @@ public class APPLICATION {
                     }
                     rsManager.close();
                     break;
-                case 3: // Member가 속한 Team 조회
+                case 3: // Member가 속한 Team 조회 P2_3.7.2
                     ResultSet rsTeam = Selectx("T.TEAM_NAME", "TEAM T INNER JOIN TEAM_MEM TM ON T.TEAM_ID = TM.TEAM_ID", "TM.MEM_ID = '" + id + "'", "");
                     if (rsTeam.next()) {
                         System.out.println("Team Information:");
