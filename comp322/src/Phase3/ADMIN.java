@@ -320,8 +320,9 @@ public class ADMIN {
                 //WHERE OWNER_HP = '053-437-9417';
                 case 3 :
                     rs = SQLx.Selectx("*","MATCH NATURAL JOIN MATCH_EVAL_VIEW NATURAL JOIN " +
-                            "(SELECT MATCH_ID, COUNT(MEMBER_ID), SUM(COST) FROM MATCH_APP_MEMBER GROUP BY MATCH_ID",
+                            "(SELECT MATCH_ID, COUNT(MEMBER_ID), SUM(COST) FROM MATCH_APP_MEMBER GROUP BY MATCH_ID)",
                             "ORDER BY DATE_TIME DESC");
+                    System.out.println();
                     for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
                         System.out.printf("%13s", rs.getMetaData().getColumnName(i));
                     System.out.println("--------------------------------------------------------------");
@@ -329,6 +330,7 @@ public class ADMIN {
                         for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
                             if(i==7 || i==9 || i==10) System.out.printf("%13d", rs.getInt(i));
                             else System.out.printf("%13s", rs.getString(i));
+                        System.out.println();
                     }
                     break;
                 //SELECT *
@@ -339,15 +341,17 @@ public class ADMIN {
                 //ORDER BY DATE_TIME DESC ;
                 case 4 :
                     rs = SQLx.Selectx("*","TRAINING NATURAL JOIN " +
-                            "(SELECT CLASS_ID, COUNT(TUTEE_ID) FROM TRAIN_ENROLLS GROUP BY MATCH_ID",
+                            "(SELECT CLASS_ID, COUNT(TUTEE_ID) FROM TRAIN_ENROLLS GROUP BY CLASS_ID)",
                         "ORDER BY DATE_TIME DESC");
                     for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
                         System.out.printf("%22s", rs.getMetaData().getColumnName(i));
+                    System.out.println();
                     System.out.println("--------------------------------------------------------------");
                     while (rs.next()) {
                         for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
                             if(i>=7) System.out.printf("%22d", rs.getInt(i));
                             else System.out.printf("%22s", rs.getString(i));
+                        System.out.println();
                     }
                     break;
                 //SELECT *

@@ -214,7 +214,7 @@ public class APPLICATION {
                 break;
             case 2: // Sex
                 targetField = "SEX";
-                if (!newValue.equals("M") && !newValue.equals("F")) {
+                if (!newValue.toUpperCase().equals("M") && !newValue.toUpperCase().equals("F")) {
                     System.out.println("Invalid sex. Please enter 'M' for Male or 'F' for Female.");
                     isValidInput = false;
                 }
