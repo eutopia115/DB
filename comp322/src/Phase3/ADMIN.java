@@ -16,7 +16,8 @@ public class ADMIN {
             System.out.println("----------------------------------------------------");
             System.out.println("1. Update");
             System.out.println("2. Delete");
-            System.out.println("3. Log Out");
+            System.out.println("3. Insert");
+            System.out.println("4. Log Out");
             System.out.println("----------------------------------------------------");
             System.out.print("Enter the number : ");
             int opt = Integer.parseInt(ProjectMain.bf.readLine());
@@ -24,7 +25,7 @@ public class ADMIN {
                 case 1 : Update(option); break;
                 case 2 : Delete(option); break;
                 //case 3 : Select(option); break;
-                case 3 : return;
+                case 4 : return;
                 default: System.out.println("Wrong number!, Re-enter");
             }
         }
@@ -324,12 +325,12 @@ public class ADMIN {
                             "ORDER BY DATE_TIME DESC");
                     System.out.println();
                     for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
-                        System.out.printf("%13s", rs.getMetaData().getColumnName(i));
-                    System.out.println("--------------------------------------------------------------");
+                        System.out.printf("%20s", rs.getMetaData().getColumnName(i));
+                    System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                     while (rs.next()) {
                         for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
-                            if(i==7 || i==9 || i==10) System.out.printf("%13d", rs.getInt(i));
-                            else System.out.printf("%13s", rs.getString(i));
+                            if(i==8 || i==10 || i==11 || i==5) System.out.printf("%20d", rs.getInt(i));
+                            else System.out.printf("%20s", rs.getString(i));
                         System.out.println();
                     }
                     break;
@@ -344,13 +345,12 @@ public class ADMIN {
                             "(SELECT CLASS_ID, COUNT(TUTEE_ID) FROM TRAIN_ENROLLS GROUP BY CLASS_ID)",
                         "ORDER BY DATE_TIME DESC");
                     for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
-                        System.out.printf("%22s", rs.getMetaData().getColumnName(i));
-                    System.out.println();
-                    System.out.println("--------------------------------------------------------------");
+                        System.out.printf("%27s", rs.getMetaData().getColumnName(i));
+                    System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                     while (rs.next()) {
                         for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
-                            if(i>=7) System.out.printf("%22d", rs.getInt(i));
-                            else System.out.printf("%22s", rs.getString(i));
+                            if(i>=7) System.out.printf("%27d", rs.getInt(i));
+                            else System.out.printf("%27s", rs.getString(i));
                         System.out.println();
                     }
                     break;
