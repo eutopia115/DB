@@ -137,3 +137,4 @@ CAUTION
 4. Manager-Match, Training-tutor는  1:n관계로 재판단하여 MATCH_APP_MANAGER + MATCH = MATCH, TRAIN_REG + TRAINING = TRAINING로 릴레이션 간소화함.
 5. Query 구현, Phase 2에 비해 대부분 수정 : 개발한 프로그램에 알맞은 조회 서비스 제공을 위해
 6. MATCH에 MAX_NUM attribute 추가, TRAINING, MATCH MAX_NUM에 따라 apply시에 reject하는 기능 및 현재 인원 체크 기능 제공
+7. MATCH, TRAINING에 COST_PER_ONE 추가, 참가자 한 명당 지불금액

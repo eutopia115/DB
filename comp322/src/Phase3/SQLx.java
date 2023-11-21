@@ -75,7 +75,8 @@ public class SQLx {
             sb.append(apx+data[4]+apx+comma);
             sb.append(apx+data[5]+apx+comma);
             sb.append(data[6]+comma);
-            sb.append(data[7]+rparen);
+            sb.append(data[7]+comma);
+            sb.append(data[8]+rparen);
         }
         else if(tbl.equals("TRAIN_ENROLLS")){
             sb.append(lparen);
