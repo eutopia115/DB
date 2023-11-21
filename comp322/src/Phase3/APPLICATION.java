@@ -10,13 +10,11 @@ import java.util.Calendar;
 import java.util.Random;
 
 import static Phase3.SQLx.*;
-
+import static Phase3.ProjectMain.bf;
 
 public class APPLICATION {
     protected static void MyPage(String id, boolean role) {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         // 사용자 정보를 데이터베이스에서 가져오기
-
         while (true) {
             System.out.println("----------------------------------------------------");
             if (role) { // 멤버일 경우
