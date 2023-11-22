@@ -405,9 +405,8 @@ public class APPLICATION {
     }
 
     public static void Make_training(String tutor_id) throws IOException, SQLException {
-        
-        Random rand = new Random(System.currentTimeMillis());
         StringBuilder sb = new StringBuilder(); // class_id
+        Random rand = new Random(System.currentTimeMillis());
         while(true) {
             sb.append("C").append(Math.abs(rand.nextInt() % 10)).append(Math.abs(rand.nextInt() % 10)).append(Math.abs(rand.nextInt() % 10));
             sb.append("-").append(Math.abs(rand.nextInt() % 10)).append(Math.abs(rand.nextInt() % 10));
@@ -531,6 +530,13 @@ public class APPLICATION {
                 if(rs2.next())
                     cost = rs2.getInt("COST_PER_ONE");
                 // 1. 멤버의 prepaid_money를 갱신하는 쿼리를 PreparedStatement로 작성
+                rs = Selectx("PREPAID_MONEY", "MEMBER", "WHERE ID_NUMBER = '"+ id +"'");
+                rs.next();
+                int pm = rs.getInt(1);
+                if(pm < cost) {
+                    System.out.println("You don't have enough money, please Charge first");
+                    break;
+                }
                 String updatePrepaidMoneyQuery = "UPDATE member SET prepaid_money = prepaid_money - ? WHERE id_number = ?";
 
                 // 2. PrepareStatement 객체 생성
@@ -560,7 +566,7 @@ public class APPLICATION {
     }
     private static void Cancel_training(String id) throws IOException, SQLException {
         try {
-            
+
             int cost = 0;
             int iter = 0;
             while (true) {
@@ -627,7 +633,7 @@ public class APPLICATION {
                     break;
                 iter++;
 
-                ResultSet rs = Selectx("M.MATCH_ID, M.COST_PER_ONE, M.MAX_NUM, M.SEX_CONSTRAINT X.CNT",
+                ResultSet rs = Selectx("M.MATCH_ID, M.COST_PER_ONE, M.MAX_NUM, M.SEX_CONSTRAINT, X.CNT",
                         "MATCH M LEFT OUTER JOIN (SELECT MATCH_ID, COUNT(MEMBER_ID) AS CNT FROM MATCH_APP_MEMBER GROUP BY MATCH_ID) X ON M.MATCH_ID = X.MATCH_ID",
                         "where M.Match_ID = '"+match_id+"'");
 
@@ -652,10 +658,10 @@ public class APPLICATION {
                     System.out.println("Match is already full");
                     break;
                 }
-                rs = Selectx("SEX", "USER", "WHERE ID_NUMBER = '"+ id +"'");
+                rs = Selectx("SEX", "USERS", "WHERE ID_NUMBER = '"+ id +"'");
                 rs.next();
                 String sex = rs.getString(1);
-                if(sex.equals(sexCon)){
+                if(!sex.equals(sexCon)){
                     System.out.println("You cannot satisfy sex constraint");
                     break;
                 }
@@ -673,10 +679,9 @@ public class APPLICATION {
 
                     if (updateResult > 0) {
                         // 5. prepaid_money 갱신이 성공하면 MATCH_APP_MEMBER에 데이터 삽입
-                        String[] key = new String[3];
+                        String[] key = new String[2];
                         key[0] = match_id;
                         key[1] = id;
-                        key[2] = String.valueOf(cost);
                         Insertx("MATCH_APP_MEMBER", key);
 
                         System.out.println("Apply Match successful!");
@@ -1001,8 +1006,7 @@ public class APPLICATION {
 
                             }
                         }
-                        else
-                            System.out.println("No match exists.");
+
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }

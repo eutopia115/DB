@@ -239,14 +239,15 @@ public class ADMIN {
                 SQLx.Updatex(tbls[opt-1], attr[target-1], value, key);
                 break;
             case 5 :
-                attr = new String[7];
+                attr = new String[8];
                 attr[0] = "MATCH_ID";
                 attr[1] = "DATE_TIME";
                 attr[2] = "PLACE_ID";
                 attr[3] = "TYPE";
-                attr[4] = "SEX_CONSTRAINT";
-                attr[5] = "MANAGER_ID";
-                attr[6] = "WAGE";
+                attr[4] = "MAX_NUM";
+                attr[5] = "SEX_CONSTRAINT";
+                attr[6] = "MANAGER_ID";
+                attr[7] = "WAGE";
                 System.out.print("input target match id number : ");
                 key[0] = ProjectMain.bf.readLine().toUpperCase().toUpperCase();
                 rs = SQLx.Selectx("*", tbls[opt-1], attr[0] + " = '" + key[0] + "'", "");
@@ -257,11 +258,11 @@ public class ADMIN {
                 }
                 System.out.println("attribute ");
                 System.out.printf("1. %s 2. %s 3. %s 4. %s\n", attr[0], attr[1], attr[2], attr[3]);
-                System.out.printf("5. %s 6. %s 7. %s \n", attr[4], attr[5], attr[6]);
+                System.out.printf("5. %s 6. %s 7. %s 8. %s\n", attr[4], attr[5], attr[6], attr[7]);
                 System.out.println("any other number. exit ");
                 System.out.print("input target attribute number(only 1) : ");
                 target = Integer.parseInt(ProjectMain.bf.readLine());
-                if(target<1 || target>7) return;
+                if(target<1 || target>8) return;
                 System.out.printf("selected attribute : %s\n", attr[target-1]);
                 System.out.printf("now value : %s\n", rs.getString(target));
                 System.out.print("input new value : ");
@@ -398,29 +399,31 @@ public class ADMIN {
             switch (opt){
                 case 1 :
                     rs = SQLx.Selectx("SUM(PREPAID_MONEY)", "MEMBER");
-                    while (rs.next()) System.out.printf("Sum of prepaid_money : %d", rs.getInt(1));
+                    while (rs.next()) System.out.printf("Sum of prepaid_money : %d\n", rs.getInt(1));
                 break;
                 //SELECT SUM(PREPAID_MONEY)
                 //FROM MEMBER;
                 case 2 : // P2_3.1.2
-                    System.out.print("Input Owner's Phone Number");
+                    System.out.print("Input Owner's Phone Number : ");
                     String hp = ProjectMain.bf.readLine();
-                    rs = SQLx.Selectx("*","FIELD","WHERE OWNER_HP = "+ hp);
+                    rs = SQLx.Selectx("*","FIELD","WHERE OWNER_HP = '"+ hp + "'");
                     System.out.println("this owner has these fields ");
                     for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
                         System.out.printf("%30s", rs.getMetaData().getColumnName(i));
+                    System.out.println();
                     System.out.println("--------------------------------------------------------------");
                     while (rs.next()) {
                         for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
                             System.out.printf("%30s", rs.getString(i));
                     }
+                    System.out.println();
                     break;
                 //SELECT *
                 //FROM FIELD
                 //WHERE OWNER_HP = '053-437-9417';
                 case 3 : // P2_3.3.1
                     rs = SQLx.Selectx("*","MATCH NATURAL JOIN MATCH_EVAL_VIEW NATURAL JOIN " +
-                            "(SELECT MATCH_ID, COUNT(MEMBER_ID), SUM(COST) FROM MATCH_APP_MEMBER GROUP BY MATCH_ID)",
+                            "(SELECT MATCH_ID, COUNT(MEMBER_ID) FROM MATCH_APP_MEMBER GROUP BY MATCH_ID)",
                             "ORDER BY DATE_TIME DESC");
                     System.out.println();
                     for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
@@ -449,7 +452,8 @@ public class ADMIN {
                     System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                     while (rs.next()) {
                         for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
-                            if(i>=7) System.out.printf("%27d", rs.getInt(i));
+                            if(i==2) System.out.printf("%20s", rs.getDate(i).toString());
+                            else if(i>=7) System.out.printf("%27d", rs.getInt(i));
                             else System.out.printf("%27s", rs.getString(i));
                         System.out.println();
                     }

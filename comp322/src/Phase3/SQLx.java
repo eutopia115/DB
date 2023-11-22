@@ -99,8 +99,7 @@ public class SQLx {
             else if(tbl.equals("MATCH_APP_MEMBER")){
                 sb.append(lparen);
                 sb.append(apx+data[0]+apx+comma);
-                sb.append(apx+data[1]+apx+comma);
-                sb.append(data[2]+rparen);
+                sb.append(apx+data[1]+apx+rparen);
             }
             else {
                 System.err.println("Insert Error");
