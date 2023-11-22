@@ -1,5 +1,3 @@
-SoccerLink 
-
 TEAM : 봉준호 손흥민 황두영 let's go
 
 MEMBER :
@@ -108,10 +106,10 @@ Tier를 통해 자신과 수준이 비슷한 사람들과 경기를 가질 수 �
 CAUTION
 
 1. 모든 ID는 각 Relation의 식별자 + 3digit-2digit-4digit 문자열로 구성됨
-	* 단, FIELD_ID는 '_____-__-____' (식별자 + 4digit-2digit-4digit)
-	Relation : 식별자
-	USERS : U / TEAM : T / FILED : F / MATCH : M / TRAIN : C
-	ex) TEAM.TEAM_ID = T624-65-8794, TRAINING.CLASS_ID = C891-87-9875 
+   * 단, FIELD_ID는 '_____-__-____' (식별자 + 4digit-2digit-4digit)
+   Relation : 식별자
+   USERS : U / TEAM : T / FILED : F / MATCH : M / TRAIN : C
+   ex) TEAM.TEAM_ID = T624-65-8794, TRAINING.CLASS_ID = C891-87-9875 
 
 2. 성별은 'M' OR 'F' 로 표기
 
@@ -120,21 +118,75 @@ CAUTION
 . TIER는 개별 VIEW로 유지함, EVALUATION이나 TEAM or MATCH에 변경이 이루어지면 TIER 자동 산정 
 
 4. REFERENCE INTEGRITY 유지를 위한 INSERT 권장 순서
-	순위. RELATION명 : 선행 RELATION명
-	1st. USERS, TEAM, OWNER: FK 제약 없음
-	2nd. MANAGER, MEMBER : USERS / FIELD : OWNER
-	3rd. MAN_EVAL_MEM : MANAGER, MEMBER / TEAM_MEM : TEAM, MEMBER / TRAINING : MEMBER / MATCH : FIELD
-	4th. TRAIN_ENROLLS : TRAINING, MEMBER / TRAIN_REG : TRAINING / MATCH_APP_MANAGER : MATCH, MANAGER / MATCH_APP_MEMBER : MATCH, MEMBER
-	* RELATIONAL SCHEMA에 좌측부터 순서대로 기입되어 있으니 확인하시면 좋습니다. (Team6_er_modify+relational.pdf)
+   순위. RELATION명 : 선행 RELATION명
+   1st. USERS, TEAM, OWNER: FK 제약 없음
+   2nd. MANAGER, MEMBER : USERS / FIELD : OWNER
+   3rd. MAN_EVAL_MEM : MANAGER, MEMBER / TEAM_MEM : TEAM, MEMBER / TRAINING : MEMBER / MATCH : FIELD
+   4th. TRAIN_ENROLLS : TRAINING, MEMBER / TRAIN_REG : TRAINING / MATCH_APP_MANAGER : MATCH, MANAGER / MATCH_APP_MEMBER : MATCH, MEMBER
+   * RELATIONAL SCHEMA에 좌측부터 순서대로 기입되어 있으니 확인하시면 좋습니다. (Team6_er_modify+relational.pdf)
 
 5. MAN_EVAL_MEM에서, 같은 MANAGER가 같은 MEMBER를 재평가하게 된다면, UPDATE문을 사용해 이전 RECORD를 갱신한다.
 
 -- Phase 3
 
 1. login 기능을 추가하면서, 개인 보안을 위해 USERS Relation에 PASSWD Attribute를 추가함.
-2. 모든 ID_NUMBER은 INSERT 후 형식에 맞추어 랜덤하게 배정됨.(코레일톡이나 SR의 회원번호 시스템)
+
+2. 모든 ID_NUMBER, TRAINING_ID, TEAM_ID, MATCH_ID는  고유한 번호로 랜덤하게 배정한 후 형식에 맞추어 INSERT 한다. (코레일톡이나 SR의 회원번호 시스템)
+
 3. ProjectMain : 메인화면, 크레딧 / SQLx : SQL문 입력 편하게 만드는 클래스 / USERS : 회원가입, 로그인 / ADMIN : 관리자 모드 / APPLICATION : 유저(멤버, 매니저) 모드
+3-1. ADMIN
+: ADMIN에서 UPDATE 하거나 DELETE할 때, 관계를 맺고 있는 Table에도 CASCADE 된다.
+3-1-1. User
+: User의 Attribute 값 UPDATE, User를 DELETE 할 수 있다.
+3-1-2. Team
+: Team의 Attriute 값 UPDATE, TEAM을 DELETE 할 수 있다.
+3-1-3. Owner
+: Owner의 Attribute 값 UPDATE, Owner를 DELETE, 새로운 Owner를 INSERT 할 수 있다.
+3-1-4. Field
+: Field의 Attribute 값 UPDATE, Field를 DELETE, 새로운 Field를 INSERT 할 수 있다.
+3-1-5. Match
+: Match의 Attribute 값 UPDATE, Match를 DELETE, 새로운 MATCH를 INSERT 할 수 있다.
+3-1-6. Training
+: Training의 Attribute 값 UPDATE, Training을 DELETE 할 수 있다.
+3-1-7. Check Some Information
+: Check Sum of Prepaid_money(모든 계좌가 가지는 금액의 합계), Check the Fields/Owner (Owner hp에 따른 Field 정보), MatchData Order by date (Match 정보를 Date에 따라 정렬한 후 출력), TrainingData Order by date (Training 정보를 Date에 따라 정렬한 후 출력)
+
+3-2 APPLICATION
+: 모든 부분에서 table과 table 사이에서 발생할 수 있는 CASCADE에 대한 처리를 구현했음
+
+3-2-1. MyPage (MEMBER)
+1) Change my info: member의 정보를 바꿀 수 있음
+2) Cash Charge: member의 prepaid money에 cash charge
+3) Check My Info: Member의 자기 정보 및 캐시 정보 조회
+4) Check My Team :Member가 속한 Team 조회
+5) Secession: 회원탈퇴
+
+3-2-2. MyPage (MANAGER)
+1) Change my info: manager의 정보를 바꿀 수 있음
+2) Check My Info: Manager의 자기 정보 조회 
+3) Secession: 회원탈퇴
+
+3-2-3. UserEval
+: Manager가 user를 평가하는 기능
+
+3-2-4 Apply Match(manager)
+: Manager로 Match에 Apply 기능
+
+3-2-5 Training (MEMBER)
+: View My training (내가 속한 training 확인 가능), Search training (주제와 추천 티어를 통해서 training 검색 가능), make training, delete training, apply training,  cancel training 기능
+: training 신청시 prepaid money에서 cost만큼 돈이 빠져나가도록 설정, 만약 cost보다 돈이 없을 경우 reject
+: tutor가 training delete시 training에 신청한 user의 data delete
+
+3-2-6 Match (MEMBER)
+: Search Match(시간과 장소를 통해서 match 검색 가능), View My Match(내가 참가하는 match 확인 가능), Apply Match, Cancel Match 기능
+
+3-2-7 Team (MEMBER)
+: make team, delete team, apply team, cancel team 기능
+
 4. Manager-Match, Training-tutor는  1:n관계로 재판단하여 MATCH_APP_MANAGER + MATCH = MATCH, TRAIN_REG + TRAINING = TRAINING로 릴레이션 간소화함.
+
 5. Query 구현, Phase 2에 비해 대부분 수정 : 개발한 프로그램에 알맞은 조회 서비스 제공을 위해
+
 6. MATCH에 MAX_NUM attribute 추가, TRAINING, MATCH MAX_NUM에 따라 apply시에 reject하는 기능 및 현재 인원 체크 기능 제공
+
 7. MATCH, TRAINING에 COST_PER_ONE 추가, 참가자 한 명당 지불금액
