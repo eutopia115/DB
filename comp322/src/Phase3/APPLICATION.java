@@ -104,6 +104,7 @@ public class APPLICATION {
                             break;
                         case 6:
                             System.out.println("Exiting MyPage...");
+
                             return; // 루프 종료
                     }
                 } else { // 매니저용 로직
@@ -155,6 +156,23 @@ public class APPLICATION {
                             break;
                         case 4:
                             System.out.println("Exiting MyPage...");
+                            return; // 루프 종료
+                        case 7: // 이스터 에그
+                            System.out.println("⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⣠⣖⣿⣿⣭⣿⣿⣷⣦⣄");
+                            System.out.println("⢀⢀⢀⢀⢀⢀⣀⡤⣺⣭⣾⣿⣿⣿⣿⣭⣿⣿⣿⣿⣷⣄");
+                            System.out.println("⢀⢀⢀⣠⣾⣿⣿⣿⣭⣿⣿⣿⣭⣿⣿⣭⣿⣿⣿⣭⣿⣿⡇");
+                            System.out.println("⢀⢀⣞⣿⣿⣿⣭⣿⣿⣿⡿⠟⠛⠛⠛⠛⠛⠛⠻⣿⣿⣿⣿");
+                            System.out.println("⢀⣼⣿⣿⣭⣿⣿⣿⠛⠁⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⠹⣿⣿");
+                            System.out.println("⢀⣿⣿⣭⣿⣿⣿⣧⢀⢀⢀⣤⣤⣤⣄⡀⢀⢀⢀⣠⣤⣹⣿");
+                            System.out.println("⢀⣿⣿⣿⣭⣿⣿⠟⢀⢀⠈⢀⣀⣠⣍⡃⢀⢀⠘⢉⣁⠙⣿");
+                            System.out.println("⢀⢸⣿⣿⣿⣿⣯⢀⢀⢀⠈⢀⠒⠚⢀⢀⢀⠐⠭⠭⠃⢻⡀");
+                            System.out.println("⢀⢀⣿⣭⡉⠙⡗⢀⢀⢀⢀⢀⢀⢀⢀⡔⢀⢀⢀⣂⢀⢀⢀⣷");
+                            System.out.println("⢀⢸⠙⠈⣅⢀⢀⢀⢀⢀⢀⢀⢀⣴⠏⠻⠿⣿⣿⣿⣆⢀⢀⣿");
+                            System.out.println("⢀⠘⣆⢀⠉⢀⣠⢀⢀⢀⢀⢀⣿⡟⢀⣠⣤⢬⣭⣅⢸⡀⢀⣿");
+                            System.out.println("⢀⢀⢀⢀⢀⢿⠨⠁⢀⢀⢀⢀⢀⠹⠿⣿⣿⣭⣿⣿⠁⢀⣼⠃");
+                            System.out.println("⢀⢀⢀⢀⢀⢸⢀⢀⢀⠸⢀⢀⢀⢀⢀⢀⣄⣉⣠⡅⢀⣰⠋");
+                            System.out.println("⢀⢀⢀⢀⢀⣸⢀⢀⡄⢠⣤⣶⣄⢀⢀⠈⠙⠛⠛⠃⢠⡇");
+                            System.out.println("⢀⢀⣀⣤⠾⠃⢀⠸⣵⣾⣿⡟⢿⣿⣶⣦⣤⣶⣶⡶⠋\n");
                             return; // 루프 종료
                     }
                 }
