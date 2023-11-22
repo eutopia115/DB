@@ -312,7 +312,7 @@ public class ADMIN {
                 keyAttr = "ID_NUMBER";
                 System.out.print("input target user id number : ");
                 key[0] = ProjectMain.bf.readLine().toUpperCase().toUpperCase();
-                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = " + key[0], "");
+                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = '" + key[0] + "'", "");
                 rs.last();
                 if(rs.getRow()==0){
                     System.out.printf("There is no %s : %s\n", keyAttr, key[0]);
@@ -324,7 +324,7 @@ public class ADMIN {
                 keyAttr = "TEAM_ID";
                 System.out.print("input target user id number : ");
                 key[0] = ProjectMain.bf.readLine().toUpperCase().toUpperCase();
-                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = " + key[0], "");
+                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = '" + key[0] + "'", "");
                 rs.last();
                 if(rs.getRow()==0){
                     System.out.printf("There is no %s : %s\n", keyAttr, key[0]);
@@ -336,7 +336,7 @@ public class ADMIN {
                 keyAttr = "OWNER_HP";
                 System.out.print("input target user id number : ");
                 key[0] = ProjectMain.bf.readLine().toUpperCase().toUpperCase();
-                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = " + key[0], "");
+                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = '" + key[0] + "'", "");
                 rs.last();
                 if(rs.getRow()==0){
                     System.out.printf("There is no %s : %s\n", keyAttr, key[0]);
@@ -347,7 +347,7 @@ public class ADMIN {
                 keyAttr = "FIELD_ID";
                 System.out.print("input target user id number : ");
                 key[0] = ProjectMain.bf.readLine().toUpperCase().toUpperCase();
-                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = " + key[0], "");
+                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = '" + key[0] + "'", "");
                 rs.last();
                 if(rs.getRow()==0){
                     System.out.printf("There is no %s : %s\n", keyAttr, key[0]);
@@ -358,7 +358,7 @@ public class ADMIN {
                 keyAttr = "MATCH_ID";
                 System.out.print("input target user id number : ");
                 key[0] = ProjectMain.bf.readLine().toUpperCase().toUpperCase();
-                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = " + key[0], "");
+                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = '" + key[0] + "'", "");
                 rs.last();
                 if(rs.getRow()==0){
                     System.out.printf("There is no %s : %s\n", keyAttr, key[0]);
@@ -369,7 +369,7 @@ public class ADMIN {
                 keyAttr = "CLASS_ID";
                 System.out.print("input target user id number : ");
                 key[0] = ProjectMain.bf.readLine().toUpperCase().toUpperCase();
-                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = " + key[0], "");
+                rs = SQLx.Selectx("*", tbls[opt-1], keyAttr + " = '" + key[0] + "'", "");
                 rs.last();
                 if(rs.getRow()==0){
                     System.out.printf("There is no %s : %s\n", keyAttr, key[0]);
