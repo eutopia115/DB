@@ -168,7 +168,7 @@ public class APPLICATION {
 
 
     protected static void UserEval(String managerId) throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate = dateFormat.format(new Date()); // 현재 날짜
 
@@ -249,14 +249,9 @@ public class APPLICATION {
         }
 
         // 데이터베이스 업데이트
-        try {
-            String[] key = {userId}; // 키 배열에는 변경할 사용자 ID를 지정
-            SQLx.Updatex("USERS", targetField, newValue, key); // 업데이트 실행
-            System.out.println(targetField + " updated for user: " + userId);
-        } catch (SQLException e) {
-            System.out.println("Error updating " + targetField + " for user: " + userId);
-            e.printStackTrace();
-        }
+        String[] key = {userId}; // 키 배열에는 변경할 사용자 ID를 지정
+        SQLx.Updatex("USERS", targetField, newValue, key); // 업데이트 실행
+        System.out.println(targetField + " updated for user: " + userId);
     }
 
     private static void CashCharge(String memberId, int amount) {
@@ -280,19 +275,15 @@ public class APPLICATION {
     }// ONLY FOR USER, UPDATE PREPAID_MONEY
 
     private static void Secession(String userId) {
-        try {
-            // key 배열에는 삭제할 행의 기본키나 조건을 지정
-            String[] key = {userId};
-            // SQLx 클래스의 Deletex 메소드를 사용하여 사용자 삭제
-            Deletex("USERS", key);
-            System.out.println("User deleted: " + userId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // key 배열에는 삭제할 행의 기본키나 조건을 지정
+        String[] key = {userId};
+        // SQLx 클래스의 Deletex 메소드를 사용하여 사용자 삭제
+        Deletex("USERS", key);
+        System.out.println("User deleted: " + userId);
     }// DELETE USER ON CASCADE
 
     protected static void Screen(String id, boolean role, int opt) throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         // false -> Manager, true -> Member
         // opt = 2. Training, 3. Match, 4. Team
         // TRAINING, MATCH, TEAM relation control
@@ -300,7 +291,7 @@ public class APPLICATION {
         if(role) {
             if(opt ==2){
                 System.out.println("Enter the option which you want to do");
-                System.out.println("=====================================");
+                System.out.println("------------------------------------=");
                 System.out.println("1. View My training");
                 System.out.println("2. Search training");
                 System.out.println("3. make training"); // training에 만들고자 하는 트레이닝 insert
@@ -308,7 +299,7 @@ public class APPLICATION {
                 System.out.println("5. apply training"); // training id와 member id를 training 테이블에 새로운 튜플로 insert
                 System.out.println("6. cancel training"); // traniing id와 member id를 가지는 튜플을 delete
                 System.out.println("7. Quit");
-                System.out.println("=====================================");
+                System.out.println("------------------------------------=");
                 System.out.printf("Enter the number: ");
                 while(true) {
                     String detail = bf.readLine();
@@ -339,13 +330,13 @@ public class APPLICATION {
             }
             else if(opt == 3){
                 System.out.println("Enter the option which you want to do");
-                System.out.println("=====================================");
+                System.out.println("------------------------------------=");
                 System.out.println("1. Search Match");
                 System.out.println("2. View My Match");
                 System.out.println("3. Apply Match");
                 System.out.println("4. Cancel Match");
                 System.out.println("5. Quit");
-                System.out.println("=====================================");
+                System.out.println("------------------------------------=");
                 System.out.printf("Enter the number: ");
                 while(true) {
                     String detail = bf.readLine();
@@ -375,13 +366,13 @@ public class APPLICATION {
             }
             else if(opt == 4){
                 System.out.println("Enter the option which you want to do");
-                System.out.println("=====================================");
+                System.out.println("------------------------------------=");
                 System.out.println("1. make team"); // team_id 랜덤으로 만들어주고 team_id와 team_name을 team에 insert, temam_mem에 만든 사람 자동 삽입
                 System.out.println("2. delete team"); // team, team_mem 둘 다 delete (cascade 한다면)
                 System.out.println("3. apply team"); // team_mem에서 team_id와 mem_id를 delete
                 System.out.println("4. cancel team"); // team_mem에서 team_id와 mem_id를 insert
                 System.out.println("5. Quit");
-                System.out.println("=====================================");
+                System.out.println("------------------------------------=");
                 System.out.printf("Enter the number: ");
                 while(true) {
                     String detail = bf.readLine();
@@ -414,7 +405,7 @@ public class APPLICATION {
     }
 
     public static void Make_training(String tutor_id) throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         Random rand = new Random(System.currentTimeMillis());
         StringBuilder sb = new StringBuilder(); // class_id
         while(true) {
@@ -439,28 +430,26 @@ public class APPLICATION {
         String max_num = bf.readLine();
         System.out.printf("Enter the wage: ");
         String wage = bf.readLine();
-        try {
-            String[] result = new String[8];
-            result[0] = String.valueOf(sb);
-            result[1] = date_time;
-            result[2] = tutor_id;
-            result[3] = rec_tier;
-            result[4] = subject;
-            result[5] = place;
-            result[6] = max_num;
-            result[7] = wage;
-
-            Insertx("TRAINING", result);
-            System.out.println("Training data inserted successfully!");
-            System.out.println("Your Class ID is "+sb);
-        } catch (SQLException e) {
-            System.err.println("Error inserting training data: " + e.getMessage());
-        }
+        System.out.printf("Enter the cost per one: ");
+        String cost = bf.readLine();
+        String[] result = new String[9];
+        result[0] = String.valueOf(sb);
+        result[1] = date_time;
+        result[2] = tutor_id;
+        result[3] = rec_tier;
+        result[4] = subject;
+        result[5] = place;
+        result[6] = max_num;
+        result[7] = wage;
+        result[8] = cost;
+        Insertx("TRAINING", result);
+        System.out.println("Training data inserted successfully!");
+        System.out.println("Your Class ID is "+sb);
     }
 
 
     private static void Delete_training(String id) throws IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         int iter = 0;
         int cost = 0;
         while (true) {
@@ -510,7 +499,7 @@ public class APPLICATION {
     }
 
     private static void Apply_training(String id) throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         int iter = 0;
         int maxNum = 0;
         int nowNum = 0;
@@ -554,17 +543,13 @@ public class APPLICATION {
                     int updateResult = updatePrepaidMoneyStmt.executeUpdate();
 
                     if (updateResult > 0) {
-                        try {
-                            String[] data = new String[2];
-                            data[0] = Class_id;
-                            data[1] = id;
-                            Insertx("TRAIN_ENROLLS", data); // 어차피 여기서 한번에 commit
-                            System.out.println("Training is successfully applied!");
-                            break;
+                        String[] data = new String[2];
+                        data[0] = Class_id;
+                        data[1] = id;
+                        Insertx("TRAIN_ENROLLS", data); // 어차피 여기서 한번에 commit
+                        System.out.println("Training is successfully applied!");
+                        break;
 
-                        } catch (SQLException e) {
-                            System.err.println("Error applying for training: " + e.getMessage());
-                        }
                     }
                 }
             }
@@ -575,7 +560,7 @@ public class APPLICATION {
     }
     private static void Cancel_training(String id) throws IOException, SQLException {
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+            
             int cost = 0;
             int iter = 0;
             while (true) {
@@ -625,7 +610,7 @@ public class APPLICATION {
     }
     private static void Apply_match(String id) throws SQLException, IOException {
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+            
             int iter =0;
             int cost = 0;
             int maxNum= 0;
@@ -708,7 +693,7 @@ public class APPLICATION {
 
     private static void Cancel_match(String id) {
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+            
             int cost = 0;
             int iter = 0;
             while (true) {
@@ -759,7 +744,7 @@ public class APPLICATION {
 
     private static void Apply(String id) throws SQLException {
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+            
             int i = 0;
             String match_id;
             while (true) {
@@ -800,7 +785,7 @@ public class APPLICATION {
         }
     }
     private static void Make_team(String id) throws IOException, SQLException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         Random rand = new Random(System.currentTimeMillis());
         StringBuilder sb = new StringBuilder(); // class_id
         while(true){
@@ -814,32 +799,28 @@ public class APPLICATION {
                 break;
         }
 
-        try {
-            String team_id = sb.toString();
+        String team_id = sb.toString();
 
-            System.out.printf("Enter the Team name : ");
-            String team_name = bf.readLine();
-            String[] key = new String[2];
-            key[0]=team_id;
-            key[1]=team_name;
-            Insertx("TEAM",key);
+        System.out.printf("Enter the Team name : ");
+        String team_name = bf.readLine();
+        String[] key = new String[2];
+        key[0]=team_id;
+        key[1]=team_name;
+        Insertx("TEAM",key);
 
 
-            String[] key2 = new String[2];
-            key2[0] = sb.toString();
-            key2[1] = id;
-            System.out.println(key2[0]);
-            System.out.println(key2[1]);
+        String[] key2 = new String[2];
+        key2[0] = sb.toString();
+        key2[1] = id;
+        System.out.println(key2[0]);
+        System.out.println(key2[1]);
 
-            Insertx("TEAM_MEM",key2);
-        } catch (SQLException e) {
-            System.err.println("Error make team tuple: " + e.getMessage());
-        }
+        Insertx("TEAM_MEM",key2);
         System.out.println("Team data inserted successfully!");
         System.out.println("Your Team ID is "+sb);
     }
     private static void Delete_team(String id) throws IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         int condition = 0;
         System.out.printf("Enter the Team_ID which you want to delete: ");
         String team_id = bf.readLine();
@@ -867,22 +848,18 @@ public class APPLICATION {
         }
     }
     private static void Apply_team(String id) throws IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
         System.out.println("Enter the Team_ID which you want to apply: ");
         String team_id = bf.readLine();
         String[] key2 = new String[2];
         key2[0] = team_id;
         key2[1] = id;
-        try {
-            Insertx("TEAM_MEM",key2);
-            System.out.println("Apply team successfully!");
-        } catch (SQLException e) {
-            System.err.println("Error apply team tuple: " + e.getMessage());
-        }
+        Insertx("TEAM_MEM",key2);
+        System.out.println("Apply team successfully!");
     }
     private static void Cancel_team(String id) throws IOException {
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+            
             System.out.printf("Enter the Team ID which you want to cancel: ");
             String team_id = bf.readLine();
 
@@ -892,14 +869,14 @@ public class APPLICATION {
             Deletex("TEAM_MEM", key);
 
             System.out.println("Team cancellation successful!");
-        } catch (IOException | SQLException e) {
+        } catch (IOException e) {
             System.err.println("Error canceling training: " + e.getMessage());
         }
     }
 
     private static void Check(int opt, String id) throws IOException {
         try {
-            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+            
             switch (opt) {
                 case 1: // Member의 자기 정보 및 캐시 정보 조회 P2_3.2.2
 
@@ -940,10 +917,14 @@ public class APPLICATION {
                     rsManager.close();
                     break;
                 case 3: // Member가 속한 Team 조회 P2_3.7.2
-                    ResultSet rsTeam = Selectx("T.TEAM_NAME", "TEAM T INNER JOIN TEAM_MEM TM ON T.TEAM_ID = TM.TEAM_ID", "TM.MEM_ID = '" + id + "'", "");
+                    String attrT = "T.TEAM_NAME, E.TEAM_TIER";
+                    String atlT = "TEAM T INNER JOIN TEAM_MEM TM ON T.TEAM_ID = TM.TEAM_ID LEFT JOIN TEAM_EVAL_VIEW E ON T.TEAM_ID = E.TEAM_ID";
+                    String whereT = "TM.MEM_ID = '" + id + "'";
+                    ResultSet rsTeam = SQLx.Selectx(attrT, atlT, whereT, "");
                     if (rsTeam.next()) {
                         System.out.println("Team Information:");
                         System.out.println("Team Name: " + rsTeam.getString("TEAM_NAME"));
+                        System.out.println("Team Tier: " + rsTeam.getString("TEAM_TIER"));
                         // 필요한 팀 정보 추가
                     } else {
                         System.out.println("No team information available.");
@@ -975,7 +956,7 @@ public class APPLICATION {
                         int row = 1;
                         if(rsMatch.next()) { System.out.printf("%-3s | %-15s | %-15s | %-20s | %-5s | %-7s | %-15s | %-12s\n",
                                 "ROW", "MATCH_ID", "TIME", "PLACE", "TYPE", "MAX_NUM", "SEX_CONSTRAINT", "COST_PER_ONE");
-                            System.out.println("=================================================================================================================");
+                            System.out.println("---------------------------------------------------------------------------------------------------------------==");
 
                             System.out.printf("%-3d | %-15s | %-15s | %-20s | %-5s | %-7s | %-15s | %-12s\n",
                                     row, rsMatch.getString(1), rsMatch.getDate(2).toString(), rsMatch.getString(3),
@@ -1007,7 +988,7 @@ public class APPLICATION {
                         int row = 1;
                         if(rsMatch.next()) { System.out.printf("%-3s | %-15s | %-15s | %-20s | %-5s | %-7s | %-15s | %-12s\n",
                                 "ROW", "MATCH_ID", "TIME", "PLACE", "TYPE", "MAX_NUM", "SEX_CONSTRAINT", "COST_PER_ONE");
-                            System.out.println("=================================================================================================================");
+                            System.out.println("---------------------------------------------------------------------------------------------------------------==");
 
                             System.out.printf("%-3d | %-15s | %-15s | %-20s | %-5s | %-7s | %-15s | %-12s\n",
                                     row, rsMatch.getString(1), rsMatch.getDate(2).toString(), rsMatch.getString(3),
@@ -1045,7 +1026,7 @@ public class APPLICATION {
                         int row = 1;
                         if(rsTraining.next()) { System.out.printf("%-3s | %-15s | %-15s | %-20s | %-17s | %-12s | %-25s | %-12s\n",
                                 "ROW", "CLASS_ID", "TIME", "TUTOR_NAME", "RECOMMEND_TIER", "SUBJECT", "PLACE", "COST_PER_ONE");
-                            System.out.println("=================================================================================================================================================");
+                            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------=");
 
                             System.out.printf("%-3d | %-15s | %-15s | %-20s | %-17s | %-12s | %-25s | %-12s\n",
                                     row, rsTraining.getString(1), rsTraining.getDate(2).toString(), rsTraining.getString(3),
@@ -1089,7 +1070,7 @@ public class APPLICATION {
                         if (rsTraining_search.next()) {
                             System.out.printf("%-3s | %-15s | %-15s | %-20s | %-17s | %-12s | %-25s | %-12s\n",
                                     "ROW", "CLASS_ID", "TIME", "TUTOR_NAME", "RECOMMEND_TIER", "SUBJECT", "PLACE", "COST_PER_ONE");
-                            System.out.println("=================================================================================================================================================");
+                            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------=");
 
                             System.out.printf("%-3d | %-15s | %-15s | %-20s | %-17s | %-12s | %-25s | %-12s\n",
                                     row, rsTraining_search.getString(1), rsTraining_search.getDate(2).toString(), rsTraining_search.getString(3),
