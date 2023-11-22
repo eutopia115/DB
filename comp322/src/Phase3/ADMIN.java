@@ -121,7 +121,7 @@ public class ADMIN {
                 data[7] = ProjectMain.bf.readLine();
                 System.out.print("Input Cost per Person of Match : ");
                 data[8] = ProjectMain.bf.readLine();
-                SQLx.Insertx("FIELD", data);
+                SQLx.Insertx("MATCH", data);
                 break;
         }
     }
@@ -424,7 +424,8 @@ public class ADMIN {
                     System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                     while (rs.next()) {
                         for(int i=1; i<=rs.getMetaData().getColumnCount(); i++)
-                            if(i==8 || i==10 || i==11 || i==5) System.out.printf("%20d", rs.getInt(i));
+                            if(i==8 || i==9 || i==11 || i == 12|| i==5) System.out.printf("%20d", rs.getInt(i));
+                            else if(i==2) System.out.printf("%20s", rs.getDate(i).toString());
                             else System.out.printf("%20s", rs.getString(i));
                         System.out.println();
                     }

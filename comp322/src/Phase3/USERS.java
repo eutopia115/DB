@@ -99,7 +99,7 @@ public class USERS {
             rs.last();
             rows = rs.getRow();
             where.setLength(0);
-            System.out.println("WRONG ID and PASSWD!, Please Re-enter");
+            if(rows == 0) System.out.println("WRONG ID and PASSWD!, Please Re-enter");
         } while (rows != 1);
         AfterLogIn(idps);
     }
