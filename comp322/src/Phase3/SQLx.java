@@ -135,8 +135,8 @@ public class SQLx {
                 sb.append("MEM_ID = "+apx+key[0]+apx+" AND ");
                 sb.append("MAN_ID = "+apx+key[1]+apx);
             }
-            else if(tbl.equals("OWNER")) sb.append("FIELD_ID = "+apx+key[0]+apx);
-            else if(tbl.equals("FIELD")) sb.append("OWNER_ID = "+apx+key[0]+apx);
+            else if(tbl.equals("OWNER")) sb.append("OWNER_HP = "+apx+key[0]+apx);
+            else if(tbl.equals("FIELD")) sb.append("FIELD_ID = "+apx+key[0]+apx);
             else if(tbl.equals("TEAM"))
                 sb.append("TEAM_ID = "+apx+key[0]+apx);
             else if(tbl.equals("TEAM_MEM")){
@@ -180,8 +180,8 @@ public class SQLx {
                 sb.append("MEM_ID = "+apx+key[0]+apx+" AND ");
                 sb.append("MAN_ID = "+apx+key[1]+apx);
             }
-            else if(tbl.equals("OWNER")) sb.append("FIELD_ID = "+apx+key[0]+apx);
-            else if(tbl.equals("FIELD")) sb.append("OWNER_ID = "+apx+key[0]+apx);
+            else if(tbl.equals("OWNER")) sb.append("OWNER_HP = "+apx+key[0]+apx);
+            else if(tbl.equals("FIELD")) sb.append("FIELD_ID = "+apx+key[0]+apx);
             else if(tbl.equals("TEAM"))
                 sb.append("TEAM_ID = "+apx+key[0]+apx);
             else if(tbl.equals("TEAM_MEM")){
